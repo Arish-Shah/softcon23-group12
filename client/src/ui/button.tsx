@@ -6,19 +6,25 @@ type ButtonProps = DetailedHTMLProps<
 > & {
   children: React.ReactNode;
   loading?: boolean;
+  variant?: "primary" | "secondary";
 };
 
 export const Button = ({
   children,
   loading = false,
+  variant = "primary",
   ...props
 }: ButtonProps) => {
   const content = loading ? spinner : children;
+  const colors =
+    variant === "primary"
+      ? "bg-gray-800 text-white focus:ring-gray-300 disabled:bg-gray-600"
+      : "bg-white text-gray-800 focus:ring-gray-300 disabled:bg-gray-200";
 
   return (
     <div className="mt-4">
       <button
-        className="w-full h-10 bg-gray-800 text-white font-bold p-2 rounded-md flex items-center justify-center focus:ring focus:ring-gray-300 disabled:bg-gray-600 disabled:cursor-not-allowed"
+        className={`${colors} w-full h-10 font-bold p-2 rounded-md flex items-center justify-center focus:ring disabled:cursor-not-allowed`}
         disabled={loading}
         {...props}
       >

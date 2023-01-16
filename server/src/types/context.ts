@@ -10,6 +10,11 @@ export type AuthReqBody = {
   password: string;
 };
 
-export type AuthRequest = Request<{}, AuthResBody, AuthReqBody>;
+export type MeResBody = AuthResBody & {
+  username?: string;
+};
 
+export type AuthRequest = Request<{}, AuthResBody, AuthReqBody>;
 export type AuthResponse = Response<AuthResBody>;
+
+export type MeResponse = Response<MeResBody>;

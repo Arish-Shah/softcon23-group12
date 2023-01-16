@@ -1,4 +1,6 @@
 import { FormEventHandler, useState } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { AuthResponse } from "../types/response";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
@@ -12,6 +14,8 @@ export const AuthForm = ({ url }: AuthFormProps) => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -21,12 +25,14 @@ export const AuthForm = ({ url }: AuthFormProps) => {
       headers: {
         "Content-Type": "application/json",
       },
+      credentials: "include",
     });
     const response: AuthResponse = await promise.json();
     if (response.ok) {
-      console.log(response.message);
+      toast.success(response.message);
+      navigate("/", { replace: true });
     } else {
-      console.log(response.message);
+      toast.error(response.message);
     }
     setLoading(false);
   };

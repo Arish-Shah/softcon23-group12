@@ -1,13 +1,28 @@
-import express from "express";
+import cookieSession from "cookie-session";
 import cors from "cors";
-import { originUrl, port } from "./config/constants";
+import express from "express";
+import { cookieName, originUrl, port, sessionSecret } from "./config/constants";
 import authRoutes from "./routes/auth";
 
-const app = express();
+const main = async () => {
+  const app = express();
 
-app.use(cors({ credentials: true, origin: originUrl }));
-app.use(express.json());
+  app.use(cors({ credentials: true, origin: originUrl }));
+  app.use(
+    cookieSession({
+      name: cookieName,
+      secret: sessionSecret,
+      httpOnly: true,
+      sameSite: "lax",
+      path: "/",
+      maxAge: 1000 * 60 * 60 * 24 * 30,
+    })
+  );
+  app.use(express.json());
 
-app.use("/auth", authRoutes);
+  app.use("/auth", authRoutes);
 
-app.listen(port, () => console.log("server started 🚀"));
+  app.listen(port, () => console.log("server started 🚀"));
+};
+
+main().catch(console.log);

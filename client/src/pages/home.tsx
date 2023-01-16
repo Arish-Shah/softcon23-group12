@@ -1,8 +1,10 @@
+import RootLayout from "../layouts/root";
+
 const Home = () => {
   return (
-    <main>
-      <h1>home page</h1>
-    </main>
+    <RootLayout>
+      <h1>hello world</h1>
+    </RootLayout>
   );
 };
 
