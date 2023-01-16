@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/db";
-import { auth } from "@/lib/messages";
+import { auth } from "@/lib/constants";
 import type { AuthInput } from "@/types/input";
 import type { AuthResponse } from "@/types/response";
 import { compare } from "bcryptjs";

@@ -1,4 +1,4 @@
-import { title } from "@/lib/messages";
+import { title } from "@/lib/constants";
 
 const Head = () => {
   return (

@@ -4,15 +4,26 @@ import { Input } from "@/components/ui/input";
 import { FormEventHandler, useState } from "react";
 import { Button } from "./ui/button";
 
-export const AuthForm = () => {
+type AuthFormProps = {
+  url: string;
+};
+
+export const AuthForm = ({ url }: AuthFormProps) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit: FormEventHandler = (e) => {
+  const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
-    console.log({ username, password });
-    setLoading((loading) => !loading);
+    setLoading(true);
+
+    const response = await fetch(url, {
+      method: "POST",
+      body: JSON.stringify({ username, password }),
+    });
+    const json = await response.json();
+    console.log(json);
+    setLoading(false);
   };
 
   return (
