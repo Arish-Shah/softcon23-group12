@@ -1,9 +1,11 @@
+import { title } from "@/lib/messages";
+
 const Head = () => {
   return (
     <>
-      <title>scrolller</title>
+      <title>{title}</title>
       <meta content="width=device-width, initial-scale=1" name="viewport" />
-      <meta name="description" content="scrolller" />
+      <meta name="description" content={title} />
       <link rel="icon" href="/favicon.ico" />
     </>
   );

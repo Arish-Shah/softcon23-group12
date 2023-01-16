@@ -1,3 +1,5 @@
+export const title = "scrolller";
+
 export const auth = {
   INVALID_USERNAME: "invalid username",
   INVALID_PASSWORD: "invalid password",
