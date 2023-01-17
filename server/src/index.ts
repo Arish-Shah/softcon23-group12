@@ -21,8 +21,8 @@ const main = async () => {
   );
   app.use(express.json());
 
-  app.use("/auth", authRoutes);
-  app.use("/", subRoutes);
+  app.use("/api/auth", authRoutes);
+  app.use("/api", subRoutes);
 
   app.listen(port, () => console.log("server started 🚀"));
 };

@@ -1,4 +1,4 @@
-export const apiUrl = "http://localhost:8000";
+export const apiUrl = "http://localhost:8000/api";
 
 export const urls = {
   LOGIN: `${apiUrl}/auth/login`,

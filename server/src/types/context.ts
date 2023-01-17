@@ -10,14 +10,13 @@ export type AuthReqBody = {
   username: string;
   password: string;
 };
-export type AuthResBody = BaseResBody & {};
+export type AuthResBody = BaseResBody & {
+  username: null | string;
+};
 export type AuthRequest = Request<{}, AuthResBody, AuthReqBody>;
 export type AuthResponse = Response<AuthResBody>;
 
-export type MeResBody = BaseResBody & {
-  username?: string;
-};
-export type MeResponse = Response<MeResBody>;
+export type MeResponse = Response<AuthResBody>;
 
 export type FeedResBody = BaseResBody & {
   posts: Post[];

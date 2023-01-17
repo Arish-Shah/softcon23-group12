@@ -5,6 +5,5 @@ export type Post = {
   url: string;
   sub: string;
   permalink: string;
-  isVideo: boolean;
   saved: boolean;
 };

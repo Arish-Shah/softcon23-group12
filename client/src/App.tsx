@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/home";
@@ -11,6 +12,10 @@ const router = createBrowserRouter([
 ]);
 
 const App = () => {
+  useEffect(() => {
+    console.log("called");
+  }, []);
+
   return (
     <>
       <RouterProvider router={router} />

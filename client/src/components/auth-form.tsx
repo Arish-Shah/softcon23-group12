@@ -1,40 +1,37 @@
-import { FormEventHandler, useState } from "react";
+import { FormEventHandler, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { AuthResponse } from "../types/response";
+import { useLoginMutation, useRegisterMutation } from "../hooks/useMutation";
+import { useMeQuery } from "../hooks/useQuery";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
 type AuthFormProps = {
-  url: string;
+  hook: typeof useLoginMutation | typeof useRegisterMutation;
 };
 
-export const AuthForm = ({ url }: AuthFormProps) => {
+export const AuthForm = ({ hook: useAuthHook }: AuthFormProps) => {
+  const { trigger, isMutating } = useAuthHook();
+  const { data } = useMeQuery();
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (data?.ok) navigate("/", { replace: true });
+  }, [data]);
+
   const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
-    setLoading(true);
-    const promise = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify({ username, password }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-      credentials: "include",
-    });
-    const response: AuthResponse = await promise.json();
-    if (response.ok) {
-      toast.success(response.message);
-      navigate("/", { replace: true });
-    } else {
-      toast.error(response.message);
+    const data = await trigger({ username, password });
+    if (data) {
+      if (data.ok) {
+        toast.success(data.message);
+        navigate("/", { replace: true });
+      } else toast.error(data.message);
     }
-    setLoading(false);
   };
 
   return (
@@ -46,7 +43,7 @@ export const AuthForm = ({ url }: AuthFormProps) => {
         placeholder="luke"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-        disabled={loading}
+        disabled={isMutating}
         autoFocus
       />
       <Input
@@ -56,9 +53,9 @@ export const AuthForm = ({ url }: AuthFormProps) => {
         placeholder="•••••"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        disabled={loading}
+        disabled={isMutating}
       />
-      <Button type="submit" loading={loading}>
+      <Button type="submit" loading={isMutating}>
         continue
       </Button>
     </form>
