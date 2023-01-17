@@ -8,4 +8,6 @@ export const auth = {
   LOGGED_OUT: "user not logged in",
   LOGGED_IN: "user is logged in",
   LOGOUT_SUCCESS: "logged out successfully",
+  FEED_SUCCESS: "posts fetched successfully",
+  FEED_ERROR: "error fetching posts",
 };

@@ -1,5 +1,5 @@
-import { auth } from "../config/messages";
-import type { AuthReqBody } from "../types/context";
+import { auth } from "@/config/messages";
+import type { AuthReqBody } from "@/types/context";
 
 export const validateAuthReqBody = (body: AuthReqBody) => {
   const username = body.username?.trim() || "";

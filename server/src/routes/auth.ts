@@ -1,9 +1,9 @@
+import { auth } from "@/config/messages";
+import { validateAuthReqBody } from "@/lib/validate";
+import type { AuthRequest, AuthResponse, MeResponse } from "@/types/context";
 import { PrismaClient } from "@prisma/client";
 import { compare, hash } from "bcryptjs";
 import express from "express";
-import { auth } from "../config/messages";
-import { validateAuthReqBody } from "../lib/validate";
-import type { AuthRequest, AuthResponse, MeResponse } from "../types/context";
 
 const router = express.Router();
 const prisma = new PrismaClient();

@@ -3,6 +3,7 @@ import cors from "cors";
 import express from "express";
 import { cookieName, originUrl, port, sessionSecret } from "./config/constants";
 import authRoutes from "./routes/auth";
+import subRoutes from "./routes/sub";
 
 const main = async () => {
   const app = express();
@@ -21,6 +22,7 @@ const main = async () => {
   app.use(express.json());
 
   app.use("/auth", authRoutes);
+  app.use("/", subRoutes);
 
   app.listen(port, () => console.log("server started 🚀"));
 };
