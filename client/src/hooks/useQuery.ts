@@ -1,11 +1,11 @@
-import useSWR from "swr";
-import { urls } from "../lib/constants";
-import { get } from "../lib/fetcher";
+import { urls } from "@/lib/constants";
+import { get } from "@/lib/fetcher";
 import type {
   AuthResponse,
   FeedResponse,
   PostResponse,
-} from "../types/response";
+} from "@/types/response";
+import useSWR from "swr";
 
 export const useMeQuery = () => useSWR<AuthResponse>(urls.ME, get);
 

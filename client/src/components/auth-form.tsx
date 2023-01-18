@@ -1,10 +1,10 @@
+import { useLoginMutation, useRegisterMutation } from "@/hooks/useMutation";
+import { useMeQuery } from "@/hooks/useQuery";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { FormEventHandler, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
-import { useLoginMutation, useRegisterMutation } from "../hooks/useMutation";
-import { useMeQuery } from "../hooks/useQuery";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
 
 type AuthFormProps = {
   hook: typeof useLoginMutation | typeof useRegisterMutation;

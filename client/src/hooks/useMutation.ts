@@ -1,7 +1,7 @@
+import { urls } from "@/lib/constants";
+import { post } from "@/lib/fetcher";
+import { AuthResponse } from "@/types/response";
 import useSWRMutation from "swr/mutation";
-import { urls } from "../lib/constants";
-import { post } from "../lib/fetcher";
-import type { AuthResponse } from "../types/response";
 
 export const useLoginMutation = () =>
   useSWRMutation<AuthResponse>(urls.LOGIN, post);

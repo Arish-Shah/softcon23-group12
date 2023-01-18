@@ -1,7 +1,7 @@
+import { useMeQuery } from "@/hooks/useQuery";
+import type { PostType } from "@/types/response";
 import type { MouseEventHandler } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useMeQuery } from "../hooks/useQuery";
-import type { PostType } from "../types/response";
 
 type MasonryPostProps = PostType & {};
 

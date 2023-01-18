@@ -1,5 +1,5 @@
+import type { FeedResponse } from "@/types/response";
 import { Fragment } from "react";
-import { FeedResponse } from "../types/response";
 import { MasonryPost } from "./masonry-post";
 
 type FeedProps = {

@@ -1,7 +1,7 @@
+import { Feed } from "@/components/feed";
+import { useSubQuery } from "@/hooks/useQuery";
+import RootLayout from "@/layouts/root";
 import { useLoaderData } from "react-router-dom";
-import { Feed } from "../components/feed";
-import { useSubQuery } from "../hooks/useQuery";
-import RootLayout from "../layouts/root";
 
 const Sub = () => {
   const name = useLoaderData() as string;

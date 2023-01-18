@@ -1,7 +1,7 @@
+import { AuthForm } from "@/components/auth-form";
+import { useLoginMutation } from "@/hooks/useMutation";
+import AuthLayout from "@/layouts/auth";
 import { Link } from "react-router-dom";
-import { AuthForm } from "../components/auth-form";
-import { useLoginMutation } from "../hooks/useMutation";
-import AuthLayout from "../layouts/auth";
 
 const Login = () => {
   return (

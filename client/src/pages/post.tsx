@@ -1,5 +1,4 @@
 import { useLoaderData } from "react-router-dom";
-import { usePostQuery } from "../hooks/useQuery";
 
 const Post = () => {
   const id = useLoaderData() as string;

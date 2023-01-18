@@ -1,5 +1,5 @@
+import { useMeQuery } from "@/hooks/useQuery";
 import { Link } from "react-router-dom";
-import { useMeQuery } from "../hooks/useQuery";
 
 export const Navbar = () => {
   const { data, isLoading } = useMeQuery();
