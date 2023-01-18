@@ -6,9 +6,9 @@ type RootLayoutProps = {
 
 const RootLayout = ({ children }: RootLayoutProps) => {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto p-3">
       <Navbar />
-      <div className="p-3">{children}</div>
+      <div>{children}</div>
     </div>
   );
 };

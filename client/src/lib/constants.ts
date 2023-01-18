@@ -5,4 +5,5 @@ export const urls = {
   REGISTER: `${apiUrl}/auth/register`,
   ME: `${apiUrl}/auth/me`,
   LOGOUT: `${apiUrl}/auth/logout`,
+  FEED: `${apiUrl}/feed`,
 };

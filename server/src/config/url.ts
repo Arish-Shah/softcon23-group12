@@ -1,5 +1,5 @@
-import { redditUrl } from "./constants";
+import { feedSubs, redditUrl } from "./constants";
 
-export const createFeedUrl = (sub: string = "pics+gifs") => {
-  return `${redditUrl}/r/${sub}/top.json?t=all`;
+export const createFeedUrl = (sub: string = feedSubs) => {
+  return `${redditUrl}/r/${sub}.json`;
 };

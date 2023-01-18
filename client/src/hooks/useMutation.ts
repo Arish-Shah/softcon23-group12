@@ -8,3 +8,6 @@ export const useLoginMutation = () =>
 
 export const useRegisterMutation = () =>
   useSWRMutation<AuthResponse>(urls.REGISTER, post);
+
+export const useLogoutMutation = () =>
+  useSWRMutation<AuthResponse>(urls.LOGOUT, post);
