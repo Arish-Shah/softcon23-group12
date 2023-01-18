@@ -25,3 +25,9 @@ export type FeedResponse = Response<FeedResBody>;
 
 export type SubRequest = Request<{ name: string }, FeedResBody, {}>;
 export type SubResponse = Response<FeedResBody>;
+
+export type PostResBody = BaseResBody & {
+  post: Post | null;
+};
+export type PostRequest = Request<{ id: string }, PostResBody, {}>;
+export type PostResponse = Response<PostResBody>;

@@ -14,3 +14,8 @@ export const feedMessage = {
   SUCCESS: "posts fetched successfully",
   ERROR: "error fetching posts",
 };
+
+export const postMessage = {
+  SUCCESS: "post fetched successfully",
+  ERROR: "error fetching post",
+};

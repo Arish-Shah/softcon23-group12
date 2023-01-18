@@ -6,4 +6,6 @@ export const urls = {
   ME: `${apiUrl}/auth/me`,
   LOGOUT: `${apiUrl}/auth/logout`,
   FEED: `${apiUrl}/feed`,
+  SUB: (name: string) => `${apiUrl}/r/${name}`,
+  POST: (id: string) => `${apiUrl}/post/${id}`,
 };

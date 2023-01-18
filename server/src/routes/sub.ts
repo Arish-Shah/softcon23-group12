@@ -15,7 +15,7 @@ router.get("/feed", async (_, res: FeedResponse) => {
       title: p.data.title,
       author: p.data.author,
       url: p.data.url_overridden_by_dest,
-      sub: p.data.subreddit,
+      sub: p.data.subreddit_name_prefixed,
       permalink: p.data.permalink,
       saved: false,
     })),
@@ -23,7 +23,13 @@ router.get("/feed", async (_, res: FeedResponse) => {
 });
 
 router.get("/r/:name", async (req: SubRequest, res: SubResponse) => {
-  const feed = await fetchFeed(req.params.name);
+  const name = req.params.name;
+  if (!name)
+    return res
+      .status(400)
+      .json({ ok: false, message: feedMessage.ERROR, posts: [] });
+
+  const feed = await fetchFeed(name);
   return res.status(200).json({
     ok: true,
     message: feedMessage.SUCCESS,
@@ -32,7 +38,7 @@ router.get("/r/:name", async (req: SubRequest, res: SubResponse) => {
       title: p.data.title,
       author: p.data.author,
       url: p.data.url,
-      sub: p.data.subreddit,
+      sub: p.data.subreddit_name_prefixed,
       permalink: p.data.permalink,
       saved: false,
     })),

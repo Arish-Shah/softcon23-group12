@@ -24,21 +24,19 @@ export const MasonryPost = ({
   return (
     <Link to={`/post/${id}`} key={id} className="block relative mb-5">
       <div className="absolute top-0 bottom-0 left-0 right-0 opacity-0 hover:opacity-100 bg-gradient-to-t from-gray-800 transition">
-        <div className="absolute bottom-4 left-4">
-          <div className="flex items-center">
-            <span className="font-bold">r/{sub}</span>
-            <span className="mx-2">&middot;</span>
-            <span className="text-sm">posted by u/{author}</span>
-          </div>
+        <div className="absolute flex justify-between bottom-4 left-4 right-4">
+          <object>
+            <Link to={`/${sub}`} className="text-sm font-bold">
+              {sub}
+            </Link>{" "}
+            <span className="text-sm">@{author}</span>
+          </object>
+          <button className="font-bold" onClick={handleSave}>
+            {saved ? "unsave" : "save"}
+          </button>
         </div>
-        <button
-          className="absolute bottom-4 right-4 font-bold"
-          onClick={handleSave}
-        >
-          {saved ? "unsave" : "save"}
-        </button>
       </div>
-      <img src={url} alt={title} draggable="false" />
+      <img src={url} alt={title} draggable="false" className="rounded-md" />
     </Link>
   );
 };

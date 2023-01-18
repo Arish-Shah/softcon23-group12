@@ -1,10 +1,13 @@
 import { Fragment } from "react";
-import { useFeedQuery } from "../hooks/useQuery";
+import { FeedResponse } from "../types/response";
 import { MasonryPost } from "./masonry-post";
 
-export const Feed = () => {
-  const { data, error, isLoading } = useFeedQuery();
+type FeedProps = {
+  data?: FeedResponse;
+  isLoading: boolean;
+};
 
+export const Feed = ({ data, isLoading }: FeedProps) => {
   let content;
   if (isLoading) {
     content = skeleton;
@@ -25,7 +28,7 @@ export const Feed = () => {
 const skeleton = (
   <div className="animate-pulse">
     {Array.from(Array(8).keys()).map((i) => (
-      <div key={i} className="mb-4 bg-gray-700 h-96"></div>
+      <div key={i} className="mb-4 bg-gray-700 h-96 rounded-md"></div>
     ))}
   </div>
 );

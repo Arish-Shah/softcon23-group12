@@ -4,6 +4,7 @@ import express from "express";
 import { cookieName, originUrl, port, sessionSecret } from "./config/constants";
 import authRoutes from "./routes/auth";
 import subRoutes from "./routes/sub";
+import postRoutes from "./routes/post";
 
 const main = async () => {
   const app = express();
@@ -22,6 +23,7 @@ const main = async () => {
   app.use(express.json());
 
   app.use("/api/auth", authRoutes);
+  app.use("/api/post", postRoutes);
   app.use("/api", subRoutes);
 
   app.listen(port, () => console.log("server started 🚀"));

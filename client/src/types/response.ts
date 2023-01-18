@@ -11,6 +11,10 @@ export type FeedResponse = BaseResponse & {
   posts: PostType[];
 };
 
+export type PostResponse = BaseResponse & {
+  post: PostType;
+};
+
 export type PostType = {
   id: string;
   title: string;

@@ -39,7 +39,7 @@ export const Navbar = () => {
 
 const skeleton = (
   <div className="flex animate-pulse">
-    <div className="w-16 h-2 bg-gray-600 rounded mr-4"></div>
-    <div className="w-16 h-2 bg-gray-600 rounded"></div>
+    <div className="w-16 h-2 bg-gray-600 rounded-md mr-4"></div>
+    <div className="w-16 h-2 bg-gray-600 rounded-md"></div>
   </div>
 );
