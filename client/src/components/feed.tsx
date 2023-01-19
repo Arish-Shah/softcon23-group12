@@ -1,4 +1,4 @@
-import type { FeedResponse } from "@/types/response";
+import type { FeedResponse } from "@/types";
 import { Fragment } from "react";
 import { MasonryPost } from "./masonry-post";
 

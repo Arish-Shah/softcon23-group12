@@ -11,12 +11,9 @@ router.get("/feed", async (_, res: FeedResponse) => {
     ok: true,
     message: feedMessage.SUCCESS,
     posts: feed.data.children.map((p) => ({
-      id: p.data.id,
-      title: p.data.title,
-      author: p.data.author,
+      ...p.data,
       url: p.data.url_overridden_by_dest,
       sub: p.data.subreddit_name_prefixed,
-      permalink: p.data.permalink,
       saved: false,
     })),
   });
@@ -34,12 +31,9 @@ router.get("/r/:name", async (req: SubRequest, res: SubResponse) => {
     ok: true,
     message: feedMessage.SUCCESS,
     posts: feed.data.children.map((p) => ({
-      id: p.data.id,
-      title: p.data.title,
-      author: p.data.author,
-      url: p.data.url,
+      ...p.data,
+      url: p.data.url_overridden_by_dest,
       sub: p.data.subreddit_name_prefixed,
-      permalink: p.data.permalink,
       saved: false,
     })),
   });

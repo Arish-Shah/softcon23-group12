@@ -31,3 +31,5 @@ export type PostResBody = BaseResBody & {
 };
 export type PostRequest = Request<{ id: string }, PostResBody, {}>;
 export type PostResponse = Response<PostResBody>;
+
+export type SavedResponse = Response<FeedResBody>;

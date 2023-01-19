@@ -19,3 +19,8 @@ export const postMessage = {
   SUCCESS: "post fetched successfully",
   ERROR: "error fetching post",
 };
+
+export const saveMessage = {
+  UNAUTHORIZED: "user unauthorized",
+  SUCCESS: "saved posts fetched successfully",
+};

@@ -18,8 +18,14 @@ model User {
 }
 
 model Post {
-  id      String  @id
-  savedBy Saved[]
+  id        String  @id
+  title     String
+  author    String
+  url       String
+  sub       String
+  permalink String
+  saved     Boolean
+  savedBy   Saved[]
 
   @@map("posts")
 }

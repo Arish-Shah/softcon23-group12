@@ -1,10 +1,6 @@
 import { urls } from "@/lib/constants";
 import { get } from "@/lib/fetcher";
-import type {
-  AuthResponse,
-  FeedResponse,
-  PostResponse,
-} from "@/types/response";
+import type { AuthResponse, FeedResponse, PostResponse } from "@/types";
 import useSWR from "swr";
 
 export const useMeQuery = () => useSWR<AuthResponse>(urls.ME, get);

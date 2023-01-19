@@ -1,5 +1,5 @@
 import { useMeQuery } from "@/hooks/useQuery";
-import type { PostType } from "@/types/response";
+import type { PostType } from "@/types";
 import type { MouseEventHandler } from "react";
 import { Link, useNavigate } from "react-router-dom";
 

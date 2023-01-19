@@ -1,6 +1,6 @@
 import { urls } from "@/lib/constants";
 import { post } from "@/lib/fetcher";
-import { AuthResponse } from "@/types/response";
+import { AuthResponse } from "@/types";
 import useSWRMutation from "swr/mutation";
 
 export const useLoginMutation = () =>
