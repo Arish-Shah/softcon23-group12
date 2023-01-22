@@ -1,18 +1,6 @@
 {
   "name": "scrolller",
   "workspaces": [
-    "client",
-    "server"
-  ],
-  "scripts": {
-    "dev:server": "npm run dev -prefix server",
-    "dev:client": "npm run dev -prefix client",
-    "build:server": "npm run build -prefix server",
-    "build:client": "npm run build -prefix client",
-    "dev": "conc \"npm run dev:server\" \"npm run dev:client\"",
-    "build": "conc \"npm run build:server\" \"npm run build:client\""
-  },
-  "devDependencies": {
-    "concurrently": "^7.6.0"
-  }
+    "packages/*"
+  ]
 }
