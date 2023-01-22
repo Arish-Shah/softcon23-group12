@@ -1,5 +1,10 @@
 import { z } from "zod";
-import { authMessages } from "./constants";
+import {
+  authMessages,
+  saveMessages,
+  userMessages,
+  usernameRegex,
+} from "./constants";
 
 const envSchema = z.object({
   NODE_ENV: z.enum(["development", "production"]),
@@ -12,12 +17,27 @@ const envSchema = z.object({
 const authInputSchema = z.object({
   username: z
     .string()
-    .regex(/[a-zA-Z0-9_]{3,8}/, { message: authMessages.INVALID_USERNAME }),
+    .regex(usernameRegex, { message: authMessages.INVALID_USERNAME }),
   password: z.string().min(5, { message: authMessages.INVALID_PASSWORD }),
+});
+
+const saveInputSchema = z.object({
+  id: z.string().length(7, { message: saveMessages.INVALID_ID }),
+  url: z.string().startsWith("https://", { message: saveMessages.INVALID_URL }),
+  sub: z.string().min(1, { message: saveMessages.INVALID_SUB }),
+});
+
+const userInputSchema = z.object({
+  username: z
+    .string()
+    .regex(usernameRegex, { message: userMessages.INVALID_USERNAME }),
+  name: z.string().optional(),
 });
 
 export type Env = z.infer<typeof envSchema>;
 export type AuthInput = z.infer<typeof authInputSchema>;
+export type SaveInput = z.infer<typeof saveInputSchema>;
+export type UserInput = z.infer<typeof userInputSchema>;
 
 export const validateEnv = () => {
   try {
@@ -30,6 +50,24 @@ export const validateEnv = () => {
 export const validateAuthInput = (input: AuthInput) => {
   try {
     authInputSchema.parse(input);
+    return null;
+  } catch (e) {
+    return (e as z.ZodError).issues[0]?.message || null;
+  }
+};
+
+export const validateSaveInput = (input: SaveInput) => {
+  try {
+    saveInputSchema.parse(input);
+    return null;
+  } catch (e) {
+    return (e as z.ZodError).issues[0]?.message || null;
+  }
+};
+
+export const validateUserInput = (input: UserInput) => {
+  try {
+    userInputSchema.parse(input);
     return null;
   } catch (e) {
     return (e as z.ZodError).issues[0]?.message || null;

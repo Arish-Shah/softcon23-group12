@@ -1,7 +1,7 @@
 import { HttpStatus } from "@/util/http-status";
 
 export class HttpError extends Error {
-  status: HttpStatus;
+  public status: HttpStatus;
 
   constructor(status: HttpStatus, message: string) {
     super(message);

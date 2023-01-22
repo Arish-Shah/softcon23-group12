@@ -15,9 +15,22 @@ export const postMessages = {
   NOT_FOUND: "post not found",
 };
 
+export const saveMessages = {
+  INVALID_ID: "invalid post id",
+  INVALID_URL: "invalid url",
+  INVALID_SUB: "invalid sub",
+};
+
+export const userMessages = {
+  INVALID_USERNAME: "invalid username",
+  USERNAME_TAKEN: "username is taken",
+};
+
 export const globalMessages = {
   UNKNOWN_ERROR: "something went wrong",
 };
+
+export const usernameRegex = /[a-zA-Z0-9_]{3,8}/;
 
 export const home =
   "pics+wallpaper+photoshopbattles+itookapicture+dogpictures+TheWayWeWere+pic+Miniworlds+images+cats";

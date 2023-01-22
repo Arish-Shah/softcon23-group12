@@ -24,7 +24,6 @@ model Post {
   id        String   @id
   url       String   @unique
   sub       String
-  author    String
   saves     Save[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

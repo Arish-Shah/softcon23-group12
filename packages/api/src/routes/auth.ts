@@ -6,23 +6,27 @@ import { AuthInput, validateAuthInput } from "@/util/validators";
 import { PrismaClient } from "@prisma/client";
 import { compare, hash } from "bcryptjs";
 import { Request, Router } from "express";
-import { isAuth } from "@/middleware/is-auth";
+import { authMiddleware } from "@/middleware/auth-middleware";
 
 const router = Router();
-const users = new PrismaClient().user;
+const prisma = new PrismaClient();
 
-router.post("/register", async (req: AuthRequest, res: AuthResponse) => {
+router.post("/register", async (req: AuthRequest, res: AuthResponse, next) => {
   const input = req.body as AuthInput;
 
-  const error = validateAuthInput(input);
-  if (error) throw new HttpError(HttpStatus.BAD_REQUEST, error);
+  const message = validateAuthInput(input);
+  if (message) return next(new HttpError(HttpStatus.BAD_REQUEST, message));
 
-  let user = await users.findUnique({ where: { username: input.username } });
+  let user = await prisma.user.findUnique({
+    where: { username: input.username },
+  });
   if (user)
-    throw new HttpError(HttpStatus.BAD_REQUEST, authMessages.USERNAME_TAKEN);
+    return next(
+      new HttpError(HttpStatus.BAD_REQUEST, authMessages.USERNAME_TAKEN)
+    );
 
   const password = await hash(input.password, 10);
-  user = await users.create({
+  user = await prisma.user.create({
     data: { username: input.username, password },
   });
 
@@ -32,28 +36,34 @@ router.post("/register", async (req: AuthRequest, res: AuthResponse) => {
     .json({ ok: true, username: user.username });
 });
 
-router.post("/login", async (req: AuthRequest, res: AuthResponse) => {
+router.post("/login", async (req: AuthRequest, res: AuthResponse, next) => {
   const input = req.body as AuthInput;
 
-  const error = validateAuthInput(input);
-  if (error) throw new HttpError(HttpStatus.BAD_REQUEST, error);
+  const message = validateAuthInput(input);
+  if (message) return next(new HttpError(HttpStatus.BAD_REQUEST, message));
 
-  let user = await users.findUnique({ where: { username: input.username } });
+  let user = await prisma.user.findUnique({
+    where: { username: input.username },
+  });
   if (!user)
-    throw new HttpError(HttpStatus.BAD_REQUEST, authMessages.USER_NOT_FOUND);
+    return next(
+      new HttpError(HttpStatus.BAD_REQUEST, authMessages.USER_NOT_FOUND)
+    );
 
   const valid = await compare(input.password, user.password);
   if (!valid)
-    throw new HttpError(HttpStatus.BAD_REQUEST, authMessages.USER_NOT_FOUND);
+    return next(
+      new HttpError(HttpStatus.BAD_REQUEST, authMessages.USER_NOT_FOUND)
+    );
 
   req.session!.username = user.username;
   return res.status(HttpStatus.OK).json({ ok: true });
 });
 
-router.get("/me", isAuth, async (req: Request, res: AuthResponse) => {
+router.get("/me", authMiddleware, async (req: Request, res: AuthResponse) => {
   return res
     .status(HttpStatus.OK)
-    .json({ ok: true, username: req.session!.username });
+    .json({ ok: true, username: req.user!.username });
 });
 
 router.post("/logout", (req, res: AuthResponse) => {

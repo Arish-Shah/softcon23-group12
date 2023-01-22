@@ -7,9 +7,10 @@ import { Router } from "express";
 
 const router = Router();
 
-router.get("/:id", async (req, res: PostResponse) => {
+router.get("/:id", async (req, res: PostResponse, next) => {
   const id = req.params.id;
-  if (!id) throw new HttpError(HttpStatus.BAD_REQUEST, postMessages.INVALID_ID);
+  if (!id)
+    return next(new HttpError(HttpStatus.BAD_REQUEST, postMessages.INVALID_ID));
 
   const response = await fetchPost(id);
   const data = response[0]?.data.children[0]?.data;

@@ -1,5 +1,18 @@
-import type { AuthInput as AuthReqBody } from "@/util/validators";
+import type {
+  AuthInput as AuthReqBody,
+  SaveInput as SaveReqBody,
+  UserInput as UserReqBody,
+} from "@/util/validators";
+import type { User } from "@prisma/client";
 import type { Request, Response } from "express";
+
+declare global {
+  namespace Express {
+    export interface Request {
+      user?: User;
+    }
+  }
+}
 
 interface Post {
   id: string;
@@ -11,7 +24,7 @@ interface Post {
   saved: boolean;
 }
 
-type FeedPost = Pick<Post, "id" | "url" | "sub" | "author" | "saved">;
+type FeedPost = Pick<Post, "id" | "url" | "sub" | "saved">;
 
 interface BaseResBody {
   ok: boolean;
@@ -34,3 +47,17 @@ interface PostResBody extends BaseResBody {
   post?: Post;
 }
 export type PostResponse = Response<PostResBody>;
+
+interface SaveResBody extends BaseResBody {}
+export type SaveRequest = Request<{}, SaveResBody, SaveReqBody, {}>;
+export type SaveResponse = Response<SaveResBody>;
+
+interface SaveFeedResBody extends BaseResBody {
+  posts: FeedPost[];
+}
+export type SaveFeedRequest = Request;
+export type SaveFeedResponse = Response<SaveFeedResBody>;
+
+interface UserResBody extends BaseResBody {}
+export type UserRequest = Request<{}, UserResBody, UserReqBody, {}>;
+export type UserResponse = Response<UserResBody>;

@@ -1,11 +1,12 @@
+import cookieSession from "cookie-session";
 import express from "express";
 import { COOKIE_NAME, PORT, SESSION_SECRET } from "./config";
+import { errorMiddleware } from "./middleware/error-middleware";
 import authRoutes from "./routes/auth";
 import feedRoutes from "./routes/feed";
 import postRoutes from "./routes/post";
+import saveRoutes from "./routes/save";
 import userRoutes from "./routes/user";
-import cookieSession from "cookie-session";
-import { errorHandler } from "./middleware/error-handler";
 
 const app = express();
 
@@ -24,9 +25,10 @@ app.use(
 app.use("/auth", authRoutes);
 app.use("/feed", feedRoutes);
 app.use("/post", postRoutes);
+app.use("/save", saveRoutes);
 app.use("/user", userRoutes);
 
-app.use(errorHandler);
+app.use(errorMiddleware);
 
 app.listen(PORT, () =>
   console.log(`server running on http://localhost:${PORT} 🚀`)
