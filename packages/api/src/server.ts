@@ -5,6 +5,7 @@ import feedRoutes from "./routes/feed";
 import postRoutes from "./routes/post";
 import userRoutes from "./routes/user";
 import cookieSession from "cookie-session";
+import { errorHandler } from "./middleware/error-handler";
 
 const app = express();
 
@@ -24,6 +25,8 @@ app.use("/auth", authRoutes);
 app.use("/feed", feedRoutes);
 app.use("/post", postRoutes);
 app.use("/user", userRoutes);
+
+app.use(errorHandler);
 
 app.listen(PORT, () =>
   console.log(`server running on http://localhost:${PORT} 🚀`)

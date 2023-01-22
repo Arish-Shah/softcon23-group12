@@ -6,8 +6,8 @@ POST {{baseURL}}/auth/register
 Content-Type: application/json
 
 {
-  "username": "arish",
-  "password": "arish"
+  "username": "scrolller",
+  "password": "scrolller"
 }
 
 ###
@@ -16,8 +16,8 @@ POST  {{baseURL}}/auth/login
 Content-Type: application/json
 
 {
-  "username": "arish",
-  "password": "arish"
+  "username": "scrolller",
+  "password": "scrolller"
 }
 
 ###

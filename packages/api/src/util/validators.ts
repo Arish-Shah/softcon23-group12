@@ -6,6 +6,7 @@ const envSchema = z.object({
   PORT: z.string(),
   COOKIE_NAME: z.string(),
   SESSION_SECRET: z.string(),
+  REDDIT_URL: z.string(),
 });
 
 const authInputSchema = z.object({
