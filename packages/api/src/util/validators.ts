@@ -12,6 +12,7 @@ const envSchema = z.object({
   COOKIE_NAME: z.string(),
   SESSION_SECRET: z.string(),
   REDDIT_URL: z.string(),
+  WEB_URL: z.string(),
 });
 
 const authInputSchema = z.object({
@@ -23,6 +24,7 @@ const authInputSchema = z.object({
 
 const saveInputSchema = z.object({
   id: z.string().length(7, { message: saveMessages.INVALID_ID }),
+  title: z.string(),
   url: z.string().startsWith("https://", { message: saveMessages.INVALID_URL }),
   sub: z.string().min(1, { message: saveMessages.INVALID_SUB }),
 });

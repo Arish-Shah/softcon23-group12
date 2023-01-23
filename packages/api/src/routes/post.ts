@@ -25,7 +25,7 @@ router.get("/:id", async (req, res: PostResponse, next) => {
       title: data.title,
       author: data.author,
       url: data.url_overridden_by_dest,
-      sub: data.subreddit_name_prefixed,
+      sub: data.subreddit,
       permalink: data.permalink,
       saved: false,
     },

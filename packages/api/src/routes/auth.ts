@@ -6,7 +6,7 @@ import { AuthInput, validateAuthInput } from "@/util/validators";
 import { PrismaClient } from "@prisma/client";
 import { compare, hash } from "bcryptjs";
 import { Request, Router } from "express";
-import { authMiddleware } from "@/middleware/auth-middleware";
+import { authMiddleware } from "@/middlewares/auth-middleware";
 
 const router = Router();
 const prisma = new PrismaClient();

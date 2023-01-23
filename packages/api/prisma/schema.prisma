@@ -22,6 +22,7 @@ model User {
 
 model Post {
   id        String   @id
+  title     String
   url       String   @unique
   sub       String
   saves     Save[]

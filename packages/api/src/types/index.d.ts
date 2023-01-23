@@ -24,7 +24,7 @@ interface Post {
   saved: boolean;
 }
 
-type FeedPost = Pick<Post, "id" | "url" | "sub" | "saved">;
+type FeedPost = Pick<Post, "id" | "title" | "url" | "sub" | "saved">;
 
 interface BaseResBody {
   ok: boolean;

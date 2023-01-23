@@ -11,8 +11,9 @@ const router = Router();
 const mapToPost = (response: RedditSubResponse): FeedPost[] =>
   response.data.children.map((p) => ({
     id: p.data.id,
+    title: p.data.title,
     url: p.data.url_overridden_by_dest,
-    sub: p.data.subreddit_name_prefixed,
+    sub: p.data.subreddit,
     saved: false,
   }));
 

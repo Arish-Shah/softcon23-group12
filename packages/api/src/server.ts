@@ -1,7 +1,8 @@
 import cookieSession from "cookie-session";
+import cors from "cors";
 import express from "express";
-import { COOKIE_NAME, PORT, SESSION_SECRET } from "./config";
-import { errorMiddleware } from "./middleware/error-middleware";
+import { COOKIE_NAME, PORT, SESSION_SECRET, WEB_URL } from "./config";
+import { errorMiddleware } from "./middlewares/error-middleware";
 import authRoutes from "./routes/auth";
 import feedRoutes from "./routes/feed";
 import postRoutes from "./routes/post";
@@ -11,6 +12,12 @@ import userRoutes from "./routes/user";
 const app = express();
 
 app.use(express.json());
+app.use(
+  cors({
+    origin: WEB_URL,
+    credentials: true,
+  })
+);
 app.use(
   cookieSession({
     name: COOKIE_NAME,

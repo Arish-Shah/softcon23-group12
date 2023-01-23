@@ -1,4 +1,4 @@
-import { authMiddleware } from "@/middleware/auth-middleware";
+import { authMiddleware } from "@/middlewares/auth-middleware";
 import type {
   SaveFeedRequest,
   SaveFeedResponse,
@@ -39,6 +39,7 @@ router.get(
       ok: true,
       posts: results.map((r) => ({
         id: r.post.id,
+        title: r.post.title,
         sub: r.post.sub,
         url: r.post.url,
         saved: true,

@@ -1,4 +1,4 @@
-import { authMiddleware } from "@/middleware/auth-middleware";
+import { authMiddleware } from "@/middlewares/auth-middleware";
 import type { UserRequest, UserResponse } from "@/types";
 import { userMessages } from "@/util/constants";
 import { HttpError } from "@/util/http-error";
