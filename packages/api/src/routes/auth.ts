@@ -31,9 +31,11 @@ router.post("/register", async (req: AuthRequest, res: AuthResponse, next) => {
   });
 
   req.session!.username = user.username;
-  return res
-    .status(HttpStatus.CREATED)
-    .json({ ok: true, username: user.username });
+  return res.status(HttpStatus.CREATED).json({
+    ok: true,
+    message: authMessages.REGISTER_SUCCESS,
+    username: user.username,
+  });
 });
 
 router.post("/login", async (req: AuthRequest, res: AuthResponse, next) => {
@@ -57,7 +59,11 @@ router.post("/login", async (req: AuthRequest, res: AuthResponse, next) => {
     );
 
   req.session!.username = user.username;
-  return res.status(HttpStatus.OK).json({ ok: true });
+  return res.status(HttpStatus.OK).json({
+    ok: true,
+    message: authMessages.REGISTER_SUCCESS,
+    username: user.username,
+  });
 });
 
 router.get("/me", authMiddleware, async (req: Request, res: AuthResponse) => {
@@ -68,7 +74,11 @@ router.get("/me", authMiddleware, async (req: Request, res: AuthResponse) => {
 
 router.post("/logout", (req, res: AuthResponse) => {
   req.session = null;
-  return res.status(HttpStatus.OK).json({ ok: true });
+  return res.status(HttpStatus.OK).json({
+    ok: true,
+    message: authMessages.LOGOUT_SUCCESS,
+    username: req.user!.username,
+  });
 });
 
 export default router;

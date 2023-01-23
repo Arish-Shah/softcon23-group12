@@ -16,19 +16,21 @@ export function AuthForm({ type }: AuthFormProps) {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isFetching, setIsFetching] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit: FormEventHandler = async (e) => {
     e.preventDefault();
-    setIsFetching(true);
+    setLoading(true);
 
     const input: AuthInput = { username, password };
-    const response =
+    const res =
       type === "login" ? await postLogin(input) : await postRegister(input);
-    if (response.ok) router.push("/");
-    else toast.error(response.error as string);
+    if (res.ok) {
+      toast.success(res.message as string);
+      router.push("/");
+    } else toast.error(res.message as string);
 
-    setIsFetching(false);
+    setLoading(false);
   };
 
   return (
@@ -40,7 +42,7 @@ export function AuthForm({ type }: AuthFormProps) {
         placeholder="luke"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
-        disabled={isFetching}
+        disabled={loading}
         autoFocus
       />
       <Input
@@ -50,9 +52,9 @@ export function AuthForm({ type }: AuthFormProps) {
         placeholder="•••••"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
-        disabled={isFetching}
+        disabled={loading}
       />
-      <Button type="submit" loading={isFetching}>
+      <Button type="submit" loading={loading}>
         continue
       </Button>
     </form>

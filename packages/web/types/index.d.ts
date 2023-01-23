@@ -15,9 +15,16 @@ export interface AuthInput {
   password: string;
 }
 
+export interface SaveInput {
+  id: string;
+  title: string;
+  url: string;
+  sub: string;
+}
+
 export interface BaseResponse {
   ok: boolean;
-  error?: string;
+  message?: string;
 }
 
 export interface AuthResponse extends BaseResponse {
@@ -27,3 +34,5 @@ export interface AuthResponse extends BaseResponse {
 export interface FeedResponse extends BaseResponse {
   posts?: FeedPost[];
 }
+
+export interface SaveResponse extends BaseResponse {}

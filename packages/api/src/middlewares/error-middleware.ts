@@ -12,9 +12,9 @@ export const errorMiddleware: ErrorRequestHandler = (
 ) => {
   try {
     const status = err.status || HttpStatus.INTERNAL_SERVER_ERROR;
-    const error = err.message || globalMessages.UNKNOWN_ERROR;
+    const message = err.message || globalMessages.UNKNOWN_ERROR;
 
-    return res.status(status).json({ ok: false, error });
+    return res.status(status).json({ ok: false, message });
   } catch (e) {
     return next(e);
   }

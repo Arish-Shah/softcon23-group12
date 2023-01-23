@@ -4,6 +4,9 @@ export const authMessages = {
   USERNAME_TAKEN: "username is taken",
   USER_NOT_FOUND: "username or password is incorrect",
   UNAUTHORIZED: "user is not logged in",
+  LOGIN_SUCCESS: "logged in successfully",
+  REGISTER_SUCCESS: "registered successfully",
+  LOGOUT_SUCCESS: "logged out successfully",
 };
 
 export const feedMessages = {
@@ -19,6 +22,8 @@ export const saveMessages = {
   INVALID_ID: "invalid post id",
   INVALID_URL: "invalid url",
   INVALID_SUB: "invalid sub",
+  SAVE_SUCCESS: "post saved successfully",
+  UNSAVE_SUCCESS: "post unsaved successfully",
 };
 
 export const userMessages = {

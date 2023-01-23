@@ -28,7 +28,7 @@ type FeedPost = Pick<Post, "id" | "title" | "url" | "sub" | "saved">;
 
 interface BaseResBody {
   ok: boolean;
-  error?: string;
+  message?: string;
 }
 export type BaseResponse = Response<BaseResBody>;
 

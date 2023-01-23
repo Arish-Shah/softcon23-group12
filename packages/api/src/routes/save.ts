@@ -5,6 +5,7 @@ import type {
   SaveRequest,
   SaveResponse,
 } from "@/types";
+import { saveMessages } from "@/util/constants";
 import { HttpError } from "@/util/http-error";
 import { HttpStatus } from "@/util/http-status";
 import { validateSaveInput } from "@/util/validators";
@@ -22,9 +23,7 @@ router.get(
     const postId = req.query.after as string;
 
     let cursor = {};
-    if (postId) {
-      cursor = { cursor: { userId_postId: { userId, postId } } };
-    }
+    if (postId) cursor = { cursor: { userId_postId: { userId, postId } } };
 
     const results = await prisma.save.findMany({
       where: { userId: req.user!.id },
@@ -54,17 +53,28 @@ router.post(
   async (req: SaveRequest, res: SaveResponse, next: NextFunction) => {
     const input = req.body;
     const userId = req.user!.id;
+    const postId = input.id;
 
-    const message = validateSaveInput(input);
+    let message = validateSaveInput(input);
     if (message) return next(new HttpError(HttpStatus.BAD_REQUEST, message));
 
-    let post = await prisma.post.findUnique({
-      where: { id: input.id },
+    const saved = await prisma.save.findUnique({
+      where: { userId_postId: { userId, postId } },
     });
-    if (!post) post = await prisma.post.create({ data: { ...input } });
-
-    await prisma.save.create({ data: { userId, postId: input.id } });
-    return res.status(HttpStatus.CREATED).json({ ok: true });
+    if (saved) {
+      await prisma.save.delete({
+        where: { userId_postId: { userId, postId } },
+      });
+      message = saveMessages.UNSAVE_SUCCESS;
+    } else {
+      let post = await prisma.post.findUnique({
+        where: { id: input.id },
+      });
+      if (!post) post = await prisma.post.create({ data: { ...input } });
+      await prisma.save.create({ data: { userId, postId: input.id } });
+      message = saveMessages.SAVE_SUCCESS;
+    }
+    return res.status(HttpStatus.CREATED).json({ ok: true, message });
   }
 );
 

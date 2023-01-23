@@ -1,4 +1,3 @@
-import { Toast } from "@/components/toast";
 import { getMe } from "@/util/get";
 import Link from "next/link";
 import { headers } from "next/headers";
@@ -18,7 +17,6 @@ export default async function AuthLayout({ children }: AuthLayoutProps) {
         scrolller
       </Link>
       {children}
-      <Toast />
     </div>
   );
 }

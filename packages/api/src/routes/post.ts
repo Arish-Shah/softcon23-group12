@@ -12,8 +12,8 @@ router.get("/:id", async (req, res: PostResponse, next) => {
   if (!id)
     return next(new HttpError(HttpStatus.BAD_REQUEST, postMessages.INVALID_ID));
 
-  const response = await fetchPost(id);
-  const data = response[0]?.data.children[0]?.data;
+  const postRes = await fetchPost(id);
+  const data = postRes[0]?.data.children[0]?.data;
 
   if (!data)
     throw new HttpError(HttpStatus.BAD_REQUEST, postMessages.NOT_FOUND);
