@@ -1,0 +1,16 @@
+@baseURL = http://localhost:8000
+
+###
+
+POST {{baseURL}}/save
+Content-Type: application/json
+
+{
+  "id": "10iid5w",
+  "url": "https://i.redd.it/u9cxuzsj6lda1.jpg",
+  "sub": "r/itookapicture"
+}
+
+###
+
+GET {{baseURL}}/save
