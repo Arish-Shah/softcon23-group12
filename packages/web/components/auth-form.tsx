@@ -1,7 +1,7 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { Button } from "@/components/auth/button";
+import { Input } from "@/components/auth/input";
 import type { AuthInput } from "@/types";
 import { postLogin, postRegister } from "@/util/post";
 import { useRouter } from "next/navigation";

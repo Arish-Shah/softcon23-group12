@@ -1,6 +1,7 @@
 import { z } from "zod";
 import {
   authMessages,
+  passwordMessages,
   saveMessages,
   userMessages,
   usernameRegex,
@@ -36,10 +37,30 @@ const userInputSchema = z.object({
   name: z.string().optional(),
 });
 
+const passwordInputSchema = z
+  .object({
+    password: z.string().min(5, { message: passwordMessages.INVALID_PASSWORD }),
+    confirmPassword: z
+      .string()
+      .min(5, { message: passwordMessages.INVALID_PASSWORD }),
+    oldPassword: z
+      .string()
+      .min(5, { message: passwordMessages.INVALID_PASSWORD }),
+  })
+  .superRefine(({ password, confirmPassword }, ctx) => {
+    if (password != confirmPassword) {
+      ctx.addIssue({
+        code: "custom",
+        message: passwordMessages.DO_NOT_MATCH,
+      });
+    }
+  });
+
 export type Env = z.infer<typeof envSchema>;
 export type AuthInput = z.infer<typeof authInputSchema>;
 export type SaveInput = z.infer<typeof saveInputSchema>;
 export type UserInput = z.infer<typeof userInputSchema>;
+export type PasswordInput = z.infer<typeof passwordInputSchema>;
 
 export const validateEnv = () => {
   try {
@@ -70,6 +91,15 @@ export const validateSaveInput = (input: SaveInput) => {
 export const validateUserInput = (input: UserInput) => {
   try {
     userInputSchema.parse(input);
+    return null;
+  } catch (e) {
+    return (e as z.ZodError).issues[0]?.message || null;
+  }
+};
+
+export const validatePasswordInput = (input: PasswordInput) => {
+  try {
+    passwordInputSchema.parse(input);
     return null;
   } catch (e) {
     return (e as z.ZodError).issues[0]?.message || null;

@@ -1,4 +1,4 @@
-import type { AuthRequest, AuthResponse } from "@/types";
+import type { AuthRequest, AuthResponse, MeResponse } from "@/types";
 import { HttpError } from "@/util/http-error";
 import { authMessages } from "@/util/constants";
 import { HttpStatus } from "@/util/http-status";
@@ -34,7 +34,6 @@ router.post("/register", async (req: AuthRequest, res: AuthResponse, next) => {
   return res.status(HttpStatus.CREATED).json({
     ok: true,
     message: authMessages.REGISTER_SUCCESS,
-    username: user.username,
   });
 });
 
@@ -61,15 +60,21 @@ router.post("/login", async (req: AuthRequest, res: AuthResponse, next) => {
   req.session!.username = user.username;
   return res.status(HttpStatus.OK).json({
     ok: true,
-    message: authMessages.REGISTER_SUCCESS,
-    username: user.username,
+    message: authMessages.LOGIN_SUCCESS,
   });
 });
 
-router.get("/me", authMiddleware, async (req: Request, res: AuthResponse) => {
-  return res
-    .status(HttpStatus.OK)
-    .json({ ok: true, username: req.user!.username });
+router.get("/me", authMiddleware, async (req: Request, res: MeResponse) => {
+  const user = req.user!;
+  return res.status(HttpStatus.OK).json({
+    ok: true,
+    user: {
+      id: user.id,
+      username: user.username,
+      name: user.name,
+      role: user.role,
+    },
+  });
 });
 
 router.post("/logout", (req, res: AuthResponse) => {
@@ -77,7 +82,6 @@ router.post("/logout", (req, res: AuthResponse) => {
   return res.status(HttpStatus.OK).json({
     ok: true,
     message: authMessages.LOGOUT_SUCCESS,
-    username: req.user!.username,
   });
 });
 

@@ -22,13 +22,31 @@ export interface SaveInput {
   sub: string;
 }
 
+export interface UserInput {
+  username: string;
+  name: string;
+}
+
+export interface PasswordInput {
+  password: string;
+  confirmPassword: string;
+  oldPassword: string;
+}
+
 export interface BaseResponse {
   ok: boolean;
   message?: string;
 }
 
-export interface AuthResponse extends BaseResponse {
-  username?: string;
+export interface AuthResponse extends BaseResponse {}
+
+export interface MeResponse extends BaseResponse {
+  user?: {
+    id: string;
+    username: string;
+    name: string;
+    role: string;
+  };
 }
 
 export interface FeedResponse extends BaseResponse {
@@ -36,3 +54,7 @@ export interface FeedResponse extends BaseResponse {
 }
 
 export interface SaveResponse extends BaseResponse {}
+
+export interface UserResponse extends BaseResponse {}
+
+export interface PasswordResponse extends BaseResponse {}

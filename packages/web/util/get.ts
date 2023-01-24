@@ -1,8 +1,8 @@
-import type { AuthResponse, FeedResponse } from "@/types";
+import type { AuthResponse, FeedResponse, MeResponse } from "@/types";
 import { request } from "./request";
 
 export async function getMe(cookie: any) {
-  return request<AuthResponse>("/auth/me", {
+  return request<MeResponse>("/auth/me", {
     headers: { cookie },
   });
 }

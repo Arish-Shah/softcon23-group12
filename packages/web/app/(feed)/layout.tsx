@@ -11,7 +11,7 @@ export default async function FeedLayout({ children }: FeedLayoutProps) {
 
   return (
     <div className="container mx-auto p-3">
-      <Navbar username={res.username} />
+      <Navbar username={res.user?.username} />
       <div className="columns-2 lg:columns-3 relative">{children}</div>
     </div>
   );

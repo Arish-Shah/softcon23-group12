@@ -29,6 +29,14 @@ export const saveMessages = {
 export const userMessages = {
   INVALID_USERNAME: "invalid username",
   USERNAME_TAKEN: "username is taken",
+  UPDATE_SUCCESS: "details updated succesfully",
+};
+
+export const passwordMessages = {
+  INVALID_PASSWORD: "invalid password",
+  DO_NOT_MATCH: "passwords do not match",
+  INCORRECT_PASSWORD: "incorrect password",
+  UPDATE_SUCCESS: "password updated successfully",
 };
 
 export const globalMessages = {

@@ -10,7 +10,7 @@ export function Navbar({ username }: NavbarProps) {
       <Link href="/saved" className="hover:underline mr-6">
         saved posts
       </Link>
-      <Link href="/me" className="font-bold">
+      <Link href="/me/update" className="font-bold">
         @{username}
       </Link>
     </div>

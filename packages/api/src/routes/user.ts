@@ -1,17 +1,23 @@
 import { authMiddleware } from "@/middlewares/auth-middleware";
-import type { UserRequest, UserResponse } from "@/types";
-import { userMessages } from "@/util/constants";
+import type {
+  PasswordRequest,
+  PasswordResponse,
+  UserRequest,
+  UserResponse,
+} from "@/types";
+import { passwordMessages, userMessages } from "@/util/constants";
 import { HttpError } from "@/util/http-error";
 import { HttpStatus } from "@/util/http-status";
-import { validateUserInput } from "@/util/validators";
+import { validatePasswordInput, validateUserInput } from "@/util/validators";
 import { PrismaClient } from "@prisma/client";
+import { compare, hash } from "bcryptjs";
 import { NextFunction, Router } from "express";
 
 const router = Router();
 const prisma = new PrismaClient();
 
 router.put(
-  "/",
+  "/update",
   authMiddleware,
   async (req: UserRequest, res: UserResponse, next: NextFunction) => {
     const input = req.body;
@@ -29,11 +35,42 @@ router.put(
 
     user = await prisma.user.update({
       where: { id: req.user!.id },
-      data: { ...input },
+      data: { username: input.username, name: input.name ?? "" },
     });
 
     req.session!.username = user.username;
-    return res.status(HttpStatus.OK).json({ ok: true });
+    return res
+      .status(HttpStatus.OK)
+      .json({ ok: true, message: userMessages.UPDATE_SUCCESS });
+  }
+);
+
+router.put(
+  "/password",
+  authMiddleware,
+  async (req: PasswordRequest, res: PasswordResponse, next: NextFunction) => {
+    const input = req.body;
+
+    const message = validatePasswordInput(input);
+    if (message) return next(new HttpError(HttpStatus.BAD_REQUEST, message));
+
+    const valid = await compare(input.oldPassword, req.user!.password);
+    if (!valid)
+      return next(
+        new HttpError(
+          HttpStatus.BAD_REQUEST,
+          passwordMessages.INCORRECT_PASSWORD
+        )
+      );
+
+    const password = await hash(input.password, 10);
+    await prisma.user.update({
+      where: { id: req.user!.id },
+      data: { password },
+    });
+    return res
+      .status(HttpStatus.OK)
+      .json({ ok: true, message: passwordMessages.UPDATE_SUCCESS });
   }
 );
 

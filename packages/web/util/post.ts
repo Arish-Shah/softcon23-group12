@@ -21,6 +21,12 @@ export const postRegister = (input: AuthInput) => {
   });
 };
 
+export const postLogout = () => {
+  return request<AuthResponse>("/auth/logout", {
+    method: "POST",
+  });
+};
+
 export const postSave = (input: SaveInput) => {
   return request<SaveResponse>("/save", {
     method: "POST",
