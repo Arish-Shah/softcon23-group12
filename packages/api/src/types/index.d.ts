@@ -1,16 +1,16 @@
 import type {
   AuthInput as AuthReqBody,
   SaveInput as SaveReqBody,
-  UserInput as UserReqBody,
-  PasswordInput as PasswordReqBody,
+  UpdateUserInput as UpdateUserReqBody,
+  UpdatePasswordInput as UpdatePasswordReqBody,
 } from "@/util/validators";
-import type { User } from "@prisma/client";
+import type { User as PrismaUser } from "@prisma/client";
 import type { Request, Response } from "express";
 
 declare global {
   namespace Express {
     export interface Request {
-      user?: User;
+      user?: PrismaUser;
     }
   }
 }
@@ -25,6 +25,14 @@ interface Post {
   saved: boolean;
 }
 
+interface User {
+  id: string;
+  username: string;
+  name: string | null;
+  role: string;
+  createdAt: string;
+}
+
 type FeedPost = Pick<Post, "id" | "title" | "url" | "sub" | "saved">;
 
 interface BaseResBody {
@@ -33,19 +41,11 @@ interface BaseResBody {
 }
 export type BaseResponse = Response<BaseResBody>;
 
-interface AuthResBody extends BaseResBody {}
+interface AuthResBody extends BaseResBody {
+  user?: User;
+}
 export type AuthRequest = Request<{}, AuthResBody, AuthReqBody, {}>;
 export type AuthResponse = Response<AuthResBody>;
-
-interface MeResBody extends BaseResBody {
-  user: {
-    id: string;
-    username: string;
-    name: string | null;
-    role: string;
-  };
-}
-export type MeResponse = Response<MeResBody>;
 
 interface FeedResBody extends BaseResBody {
   posts?: FeedPost[];
@@ -62,15 +62,22 @@ export type SaveRequest = Request<{}, SaveResBody, SaveReqBody, {}>;
 export type SaveResponse = Response<SaveResBody>;
 
 interface SaveFeedResBody extends BaseResBody {
-  posts: FeedPost[];
+  posts?: FeedPost[];
 }
 export type SaveFeedRequest = Request;
 export type SaveFeedResponse = Response<SaveFeedResBody>;
 
-interface UserResBody extends BaseResBody {}
-export type UserRequest = Request<{}, UserResBody, UserReqBody, {}>;
-export type UserResponse = Response<UserResBody>;
-
-interface PasswordResBody extends BaseResBody {}
-export type PasswordRequest = Request<{}, PasswordResBody, PasswordReqBody, {}>;
-export type PasswordResponse = Response<PasswordResBody>;
+interface UpdateResBody extends BaseResBody {}
+export type UpdateUserRequest = Request<
+  {},
+  UpdateResBody,
+  UpdateUserReqBody,
+  {}
+>;
+export type UpdatePasswordRequest = Request<
+  {},
+  UpdateResBody,
+  UpdatePasswordReqBody,
+  {}
+>;
+export type UpdateResponse = Response<UpdateResBody>;

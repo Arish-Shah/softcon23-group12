@@ -4,8 +4,10 @@ import { postMessages } from "@/util/constants";
 import { fetchPost } from "@/util/fetchers";
 import { HttpStatus } from "@/util/http-status";
 import { Router } from "express";
+import { PrismaClient } from "@prisma/client";
 
 const router = Router();
+const prisma = new PrismaClient();
 
 router.get("/:id", async (req, res: PostResponse, next) => {
   const id = req.params.id;
@@ -16,7 +18,20 @@ router.get("/:id", async (req, res: PostResponse, next) => {
   const data = postRes[0]?.data.children[0]?.data;
 
   if (!data)
-    throw new HttpError(HttpStatus.BAD_REQUEST, postMessages.NOT_FOUND);
+    return next(new HttpError(HttpStatus.BAD_REQUEST, postMessages.NOT_FOUND));
+
+  let saved = false;
+  if (!!req.session?.usermame) {
+    const user = await prisma.user.findUnique({
+      where: { username: req.session.username },
+    });
+    if (user) {
+      const save = await prisma.save.findUnique({
+        where: { userId_postId: { postId: id, userId: user.id } },
+      });
+      saved = !!save;
+    }
+  }
 
   return res.status(HttpStatus.OK).json({
     ok: true,
@@ -27,7 +42,7 @@ router.get("/:id", async (req, res: PostResponse, next) => {
       url: data.url_overridden_by_dest,
       sub: data.subreddit,
       permalink: data.permalink,
-      saved: false,
+      saved,
     },
   });
 });

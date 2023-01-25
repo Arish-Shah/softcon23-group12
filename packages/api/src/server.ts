@@ -7,7 +7,7 @@ import authRoutes from "./routes/auth";
 import feedRoutes from "./routes/feed";
 import postRoutes from "./routes/post";
 import saveRoutes from "./routes/save";
-import userRoutes from "./routes/user";
+import updateRoutes from "./routes/update";
 
 const app = express();
 
@@ -33,7 +33,7 @@ app.use("/auth", authRoutes);
 app.use("/feed", feedRoutes);
 app.use("/post", postRoutes);
 app.use("/save", saveRoutes);
-app.use("/user", userRoutes);
+app.use("/update", updateRoutes);
 
 app.use(errorMiddleware);
 

@@ -53,6 +53,8 @@ router.get("/:name", async (req, res: FeedResponse, next) => {
     );
 
   const redditRes = await fetchFeed(name, req.query.after as string);
+  if (!redditRes?.data?.children?.length)
+    return next(new HttpError(HttpStatus.BAD_REQUEST, feedMessages.NOT_FOUND));
 
   let savedIds: string[] = [];
   if (req.session?.username) {

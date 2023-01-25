@@ -11,6 +11,7 @@ export const authMessages = {
 
 export const feedMessages = {
   INVALID_NAME: "invalid sub name",
+  NOT_FOUND: "sub not found or banned",
 };
 
 export const postMessages = {

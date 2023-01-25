@@ -6,9 +6,10 @@ POST {{baseURL}}/save
 Content-Type: application/json
 
 {
-  "id": "10iid5w",
-  "url": "https://i.redd.it/u9cxuzsj6lda1.jpg",
-  "sub": "r/itookapicture"
+  "id": "haucpf",
+  "title": "I've found a few funny memories during lockdown. This is from my 1st tour in 89, backstage in Vegas.",
+  "url": "https://i.redd.it/f58v4g8mwh551.jpg",
+  "sub": "pics"
 }
 
 ###
