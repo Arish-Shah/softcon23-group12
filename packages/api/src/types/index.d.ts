@@ -63,6 +63,7 @@ export type SaveResponse = Response<SaveResBody>;
 
 interface SaveFeedResBody extends BaseResBody {
   posts?: FeedPost[];
+  hasMore: boolean;
 }
 export type SaveFeedRequest = Request;
 export type SaveFeedResponse = Response<SaveFeedResBody>;

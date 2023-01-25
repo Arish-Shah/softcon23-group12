@@ -27,7 +27,6 @@ router.get(
 
     const results = await prisma.save.findMany({
       where: { userId: req.user!.id },
-      take: 25,
       include: {
         post: true,
       },
@@ -46,6 +45,7 @@ router.get(
         url: r.post.url,
         saved: true,
       })),
+      hasMore: false,
     });
   }
 );

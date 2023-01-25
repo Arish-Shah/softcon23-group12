@@ -89,7 +89,7 @@ export const useSaveMutation = () => {
 
   return useMutation<SaveResponse, Error, SaveInput>({
     mutationFn: (input) => post("/save", input),
-    onSuccess: (data, { id, sub }) => {
+    onSuccess: (data, { id, title, url, sub }) => {
       toast.success(data.message);
 
       const updater: Updater<
@@ -117,13 +117,16 @@ export const useSaveMutation = () => {
         }
       });
       queryClient.setQueryData<FeedResponse>(["saved"], (oldData) => {
-        if (oldData?.posts) {
+        if (oldData?.posts?.length) {
           const index = oldData.posts.findIndex((post) => post.id === id);
+          const newData = structuredClone(oldData);
           if (index >= 0) {
-            const newData = structuredClone(oldData);
             newData.posts!.splice(index, 1);
             return newData;
+          } else {
+            newData.posts!.unshift({ id, title, url, sub, saved: true });
           }
+          return newData;
         }
       });
     },

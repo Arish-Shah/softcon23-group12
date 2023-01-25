@@ -52,6 +52,7 @@ export interface AuthResponse extends BaseResponse {
 
 export interface FeedResponse extends BaseResponse {
   posts?: FeedPost[];
+  hasMore?: boolean;
 }
 
 export interface SaveResponse extends BaseResponse {}
