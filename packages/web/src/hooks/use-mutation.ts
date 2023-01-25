@@ -1,12 +1,12 @@
 import type {
   AuthInput,
-  SaveInput,
-  UpdateUserInput,
-  UpdatePasswordInput,
-  BaseResponse,
   AuthResponse,
+  BaseResponse,
+  SaveInput,
   SaveResponse,
+  UpdatePasswordInput,
   UpdateResponse,
+  UpdateUserInput,
 } from "@/types";
 import { apiUrl } from "@/utils/constants";
 import { useMutation, useQueryClient } from "@tanstack/react-query";

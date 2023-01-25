@@ -1,5 +1,5 @@
 import { useUpdateUserMutation } from "@/hooks/use-mutation";
-import { JSXInternal } from "preact/src/jsx";
+import type { JSXInternal } from "preact/src/jsx";
 import { toast } from "react-hot-toast";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";

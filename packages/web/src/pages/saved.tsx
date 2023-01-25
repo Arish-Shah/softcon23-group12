@@ -2,7 +2,7 @@ import { MasonryPost } from "@/components/masonry-post";
 import { masonrySkeleton } from "@/components/skeleton";
 import { useSavedQuery } from "@/hooks/use-query";
 import { RootLayout } from "@/layouts/root-layout";
-import { FunctionComponent } from "preact";
+import type { FunctionComponent } from "preact";
 import { RoutableProps, route } from "preact-router";
 
 export const Saved: FunctionComponent<RoutableProps> = ({}) => {
@@ -14,7 +14,7 @@ export const Saved: FunctionComponent<RoutableProps> = ({}) => {
 
   const content = isLoading
     ? masonrySkeleton
-    : data?.posts?.map((post) => <MasonryPost key={post.id} {...post} />);
+    : data?.posts?.map((post, i) => <MasonryPost key={i} {...post} />);
   return (
     <RootLayout title={`${data?.posts?.length ?? 0} saved post(s)`}>
       {content}

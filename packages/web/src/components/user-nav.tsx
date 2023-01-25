@@ -1,6 +1,6 @@
 import { Link } from "preact-router";
 
-export function UserNav() {
+export const UserNav = () => {
   const pathname = window.location.pathname;
 
   const links = [
@@ -11,9 +11,9 @@ export function UserNav() {
 
   return (
     <div class="flex flex-col w-0 sm:w-52">
-      {links.map((link) => (
+      {links.map((link, i) => (
         <Link
-          key={link.href}
+          key={i}
           href={link.href}
           class={`bg-white font-bold bg-opacity-0 py-2 px-4 mb-1 rounded-md hidden sm:block ${
             link.href === pathname
@@ -26,4 +26,4 @@ export function UserNav() {
       ))}
     </div>
   );
-}
+};

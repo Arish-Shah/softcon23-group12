@@ -1,18 +1,32 @@
 import { Navbar } from "@/components/navbar";
 import { useMeQuery } from "@/hooks/use-query";
-import { FunctionComponent } from "preact";
+import type { FunctionComponent } from "preact";
+import { useEffect, useRef } from "preact/hooks";
 
 type RootLayoutProps = {
   title?: string;
   columns?: boolean;
+  onReachedBottom?: () => void;
 };
 
 export const RootLayout: FunctionComponent<RootLayoutProps> = ({
   title,
   columns = true,
+  onReachedBottom,
   children,
 }) => {
   const { data, isLoading } = useMeQuery();
+  const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (onReachedBottom) {
+      const observer = new IntersectionObserver(onReachedBottom);
+      if (bottomRef.current) observer.observe(bottomRef.current);
+      return () => {
+        if (bottomRef.current) observer.unobserve(bottomRef.current);
+      };
+    }
+  }, []);
 
   return (
     <div class="container mx-auto p-3">
@@ -23,6 +37,9 @@ export const RootLayout: FunctionComponent<RootLayoutProps> = ({
       ) : (
         children
       )}
+      <div class="mt-10 mb-8 text-center" ref={bottomRef}>
+        software containerization / group 12
+      </div>
     </div>
   );
 };

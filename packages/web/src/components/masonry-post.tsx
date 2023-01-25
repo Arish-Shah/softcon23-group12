@@ -1,5 +1,5 @@
 import { useSaveMutation } from "@/hooks/use-mutation";
-import { FeedPost } from "@/types";
+import type { FeedPost } from "@/types";
 import { Link } from "preact-router";
 import type { JSXInternal } from "preact/src/jsx";
 import { toast } from "react-hot-toast";
@@ -21,7 +21,7 @@ export function MasonryPost({ id, title, url, sub, saved }: MasonryPostProps) {
   };
 
   return (
-    <Link href={`/post/${id}`} key={id} class="block relative mb-5">
+    <Link href={`/post/${id}`} class="block relative mb-5">
       <div class="absolute top-0 bottom-0 left-0 right-0 opacity-0 bg-gray-800 hover:opacity-100 hover:bg-opacity-60 transition">
         <div class="absolute flex justify-between bottom-4 left-4 right-4">
           <Link href={`/sub/${sub}`} class="text-sm font-bold hover:underline">

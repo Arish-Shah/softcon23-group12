@@ -1,7 +1,7 @@
 import { AuthForm } from "@/components/form/auth-form";
 import { useLoginMutation } from "@/hooks/use-mutation";
 import { AuthLayout } from "@/layouts/auth-layout";
-import { FunctionComponent } from "preact";
+import type { FunctionComponent } from "preact";
 import { Link, RoutableProps } from "preact-router";
 
 export const Login: FunctionComponent<RoutableProps> = ({}) => {

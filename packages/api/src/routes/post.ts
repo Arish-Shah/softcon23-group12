@@ -21,15 +21,15 @@ router.get("/:id", async (req, res: PostResponse, next) => {
     return next(new HttpError(HttpStatus.BAD_REQUEST, postMessages.NOT_FOUND));
 
   let saved = false;
-  if (!!req.session?.usermame) {
+  if (req.session?.username) {
     const user = await prisma.user.findUnique({
       where: { username: req.session.username },
     });
     if (user) {
-      const save = await prisma.save.findUnique({
-        where: { userId_postId: { postId: id, userId: user.id } },
+      const savedPost = await prisma.save.findUnique({
+        where: { userId_postId: { userId: user.id, postId: id } },
       });
-      saved = !!save;
+      saved = !!savedPost;
     }
   }
 
