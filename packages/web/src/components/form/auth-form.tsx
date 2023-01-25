@@ -2,8 +2,8 @@ import { useLoginMutation, useRegisterMutation } from "@/hooks/use-mutation";
 import { route } from "preact-router";
 import type { JSXInternal } from "preact/src/jsx";
 import { toast } from "react-hot-toast";
-import { FormButton } from "./form/form-button";
-import { FormInput } from "./form/form-input";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 type AuthFormProps = {
   hook: typeof useLoginMutation | typeof useRegisterMutation;
@@ -30,7 +30,7 @@ export const AuthForm = ({ hook: useAuthMutation }: AuthFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} class="my-4">
-      <FormInput
+      <Input
         type="text"
         id="username"
         label="username"
@@ -39,7 +39,7 @@ export const AuthForm = ({ hook: useAuthMutation }: AuthFormProps) => {
         disabled={isLoading}
         autoFocus
       />
-      <FormInput
+      <Input
         type="password"
         id="password"
         label="password"
@@ -47,9 +47,9 @@ export const AuthForm = ({ hook: useAuthMutation }: AuthFormProps) => {
         name="password"
         disabled={isLoading}
       />
-      <FormButton type="submit" isLoading={isLoading}>
+      <Button type="submit" isLoading={isLoading}>
         continue
-      </FormButton>
+      </Button>
     </form>
   );
 };

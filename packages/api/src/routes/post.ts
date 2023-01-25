@@ -18,7 +18,7 @@ router.get("/:id", async (req, res: PostResponse, next) => {
   const data = postRes[0]?.data.children[0]?.data;
 
   if (!data)
-    throw new HttpError(HttpStatus.BAD_REQUEST, postMessages.NOT_FOUND);
+    return next(new HttpError(HttpStatus.BAD_REQUEST, postMessages.NOT_FOUND));
 
   let saved = false;
   if (!!req.session?.usermame) {

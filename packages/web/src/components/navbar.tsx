@@ -20,11 +20,11 @@ export const Navbar = ({ username, isLoading }: NavbarProps) => {
     linksSkeleton
   ) : (
     <div class="flex">
-      <Link href="/login" class="hover:underline mr-2">
+      <Link href="/login" class="hover:underline mr-1">
         login
       </Link>
       <span>or</span>
-      <Link href="/register" class="hover:underline ml-2">
+      <Link href="/register" class="hover:underline ml-1">
         register
       </Link>
     </div>

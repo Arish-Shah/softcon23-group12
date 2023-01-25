@@ -1,4 +1,4 @@
-import { AuthForm } from "@/components/auth-form";
+import { AuthForm } from "@/components/form/auth-form";
 import { useLoginMutation } from "@/hooks/use-mutation";
 import { AuthLayout } from "@/layouts/auth-layout";
 import { FunctionComponent } from "preact";

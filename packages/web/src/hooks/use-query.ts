@@ -26,7 +26,7 @@ export const useMeQuery = () =>
 
 export const useFeedQuery = (sub = "", after = "") =>
   useQuery<FeedResponse, Error>({
-    queryKey: ["feed"],
+    queryKey: ["feed", sub],
     queryFn: get("/feed/" + sub + "?after=" + after),
   });
 

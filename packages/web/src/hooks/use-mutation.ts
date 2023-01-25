@@ -61,7 +61,10 @@ export const useLogoutMutation = () => {
   return useMutation<AuthResponse, Error>({
     mutationFn: () => post("/auth/logout", {}),
     onSuccess: () => {
-      queryClient.invalidateQueries(["me"]);
+      queryClient.setQueryData<AuthResponse>(["me"], {
+        ok: false,
+        user: undefined,
+      });
     },
   });
 };
@@ -71,6 +74,7 @@ export const useSaveMutation = () => {
 
   return useMutation<SaveResponse, Error, SaveInput>({
     mutationFn: (input) => post("/save", input),
+    onSuccess: () => {},
   });
 };
 
@@ -79,13 +83,17 @@ export const useUpdateUserMutation = () => {
 
   return useMutation<UpdateResponse, Error, UpdateUserInput>({
     mutationFn: (input) => put("/update/user", input),
+    onSuccess: (_, { username, name }) => {
+      queryClient.setQueryData<AuthResponse>(["me"], (oldData) => {
+        if (oldData?.user?.id) {
+          return { ...oldData, user: { ...oldData.user, username, name } };
+        }
+      });
+    },
   });
 };
 
-export const useUpdatePasswordMutation = () => {
-  const queryClient = useQueryClient();
-
-  return useMutation<UpdateResponse, Error, UpdatePasswordInput>({
+export const useUpdatePasswordMutation = () =>
+  useMutation<UpdateResponse, Error, UpdatePasswordInput>({
     mutationFn: (input) => put("/update/password", input),
   });
-};

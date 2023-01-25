@@ -1,17 +1,17 @@
 import type { FunctionComponent } from "preact";
 import type { JSXInternal } from "preact/src/jsx";
 
-type FormButtonProps = JSXInternal.HTMLAttributes<HTMLButtonElement> & {
+type ButtonProps = JSXInternal.HTMLAttributes<HTMLButtonElement> & {
   isLoading?: boolean;
   variant?: "primary" | "secondary";
 };
 
-export const FormButton: FunctionComponent<FormButtonProps> = ({
+export const Button: FunctionComponent<ButtonProps> = ({
   children,
   isLoading: loading = false,
   variant = "primary",
   ...props
-}: FormButtonProps) => {
+}) => {
   const content = loading ? spinner : children;
   const colors =
     variant === "primary"

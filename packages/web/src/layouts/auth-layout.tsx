@@ -6,7 +6,7 @@ import { Link, route } from "preact-router";
 export const AuthLayout: FunctionComponent = ({ children }) => {
   const { data, isLoading } = useMeQuery();
 
-  if (data) {
+  if (data?.ok) {
     route("/", true);
     return null;
   }

@@ -13,7 +13,7 @@ export type FeedPost = Pick<Post, "id" | "title" | "url" | "sub" | "saved">;
 export interface User {
   id: string;
   username: string;
-  name: string | null;
+  name: string;
   role: string;
   createdAt: string;
 }

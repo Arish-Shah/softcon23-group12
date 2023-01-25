@@ -2,12 +2,12 @@ import { FunctionComponent } from "preact";
 import { useEffect, useRef } from "preact/hooks";
 import type { JSXInternal } from "preact/src/jsx";
 
-type FormInputProps = JSXInternal.HTMLAttributes<HTMLInputElement> & {
+type InputProps = JSXInternal.HTMLAttributes<HTMLInputElement> & {
   id: string;
   label: string;
 };
 
-export const FormInput: FunctionComponent<FormInputProps> = ({
+export const Input: FunctionComponent<InputProps> = ({
   id,
   label,
   autoFocus,

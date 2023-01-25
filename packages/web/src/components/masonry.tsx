@@ -10,5 +10,5 @@ type MasonryProps = {
 
 export const Masonry = ({ data, isLoading }: MasonryProps) => {
   if (isLoading) return masonrySkeleton;
-  return data!.posts!.map((post) => <MasonryPost key={post.id} {...post} />);
+  return data!.posts!.map((post, i) => <MasonryPost key={i} {...post} />);
 };
