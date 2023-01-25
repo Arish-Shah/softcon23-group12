@@ -1,6 +1,7 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Router from "preact-router";
 import { Toaster } from "react-hot-toast";
+import { Error } from "./pages/error";
 import { Home } from "./pages/home";
 import { Login } from "./pages/login";
 import { Logout } from "./pages/logout";
@@ -36,6 +37,7 @@ export const App = () => {
         <UpdateUser path="/me/update" />
         <UpdatePassword path="/me/password" />
         <Logout path="/me/logout" />
+        <Error default />
       </Router>
       <Toaster />
     </QueryClientProvider>

@@ -12,7 +12,7 @@ export const Navbar = ({ username, isLoading }: NavbarProps) => {
       <Link href="/saved" class="hover:underline mr-6">
         saved posts
       </Link>
-      <Link href="/me/update" class="font-bold">
+      <Link href="/me/update" class="font-bold hover:underline">
         @{username}
       </Link>
     </div>

@@ -4,7 +4,7 @@ import { usePostQuery } from "@/hooks/use-query";
 import { RootLayout } from "@/layouts/root-layout";
 import { Post as PostType } from "@/types";
 import { redditUrl } from "@/utils/constants";
-import { FunctionComponent } from "preact";
+import type { FunctionComponent } from "preact";
 import { Link, RoutableProps, route } from "preact-router";
 import { toast } from "react-hot-toast";
 

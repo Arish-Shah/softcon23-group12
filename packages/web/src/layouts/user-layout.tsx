@@ -1,7 +1,7 @@
-import { UserNav } from "@/components/user-nav";
 import { Navbar } from "@/components/navbar";
+import { UserNav } from "@/components/user-nav";
 import { useMeQuery } from "@/hooks/use-query";
-import { FunctionComponent } from "preact";
+import type { FunctionComponent } from "preact";
 import { route } from "preact-router";
 
 export const UserLayout: FunctionComponent = ({ children }) => {
