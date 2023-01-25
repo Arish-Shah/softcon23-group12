@@ -1,4 +1,4 @@
-import type { AuthRequest, AuthResponse, MeResponse } from "@/types";
+import type { AuthRequest, AuthResponse } from "@/types";
 import { HttpError } from "@/util/http-error";
 import { authMessages } from "@/util/constants";
 import { HttpStatus } from "@/util/http-status";
@@ -34,6 +34,13 @@ router.post("/register", async (req: AuthRequest, res: AuthResponse, next) => {
   return res.status(HttpStatus.CREATED).json({
     ok: true,
     message: authMessages.REGISTER_SUCCESS,
+    user: {
+      id: user.id,
+      username: user.username,
+      name: user.name,
+      role: user.role,
+      createdAt: user.createdAt.toISOString(),
+    },
   });
 });
 
@@ -61,10 +68,17 @@ router.post("/login", async (req: AuthRequest, res: AuthResponse, next) => {
   return res.status(HttpStatus.OK).json({
     ok: true,
     message: authMessages.LOGIN_SUCCESS,
+    user: {
+      id: user.id,
+      username: user.username,
+      name: user.name,
+      role: user.role,
+      createdAt: user.createdAt.toISOString(),
+    },
   });
 });
 
-router.get("/me", authMiddleware, async (req: Request, res: MeResponse) => {
+router.get("/me", authMiddleware, async (req: Request, res: AuthResponse) => {
   const user = req.user!;
   return res.status(HttpStatus.OK).json({
     ok: true,
@@ -73,6 +87,7 @@ router.get("/me", authMiddleware, async (req: Request, res: MeResponse) => {
       username: user.username,
       name: user.name,
       role: user.role,
+      createdAt: user.createdAt.toISOString(),
     },
   });
 });

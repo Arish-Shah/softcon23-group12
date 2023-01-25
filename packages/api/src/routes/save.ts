@@ -32,6 +32,9 @@ router.get(
         post: true,
       },
       ...cursor,
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     return res.status(HttpStatus.OK).json({

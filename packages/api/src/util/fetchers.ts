@@ -9,9 +9,10 @@ export const request = async <T>(url: string): Promise<T> => {
   return response as Promise<T>;
 };
 
-export const fetchFeed = (sub = home, after = "") => {
+export const fetchFeed = (sub = home, cursor?: string) => {
+  const after = cursor ? `t3_${cursor}` : "";
   return request<RedditSubResponse>(
-    `${REDDIT_URL}/r/${sub}.json?after=${after}`
+    `${REDDIT_URL}/r/${sub}/top.json?t=all&after=${after}`
   );
 };
 

@@ -6,4 +6,12 @@ GET {{baseURL}}/feed
 
 ###
 
+GET {{baseURL}}/feed?after=kbxb0n
+
+###
+
 GET {{baseURL}}/feed/cats
+
+###
+
+GET {{baseURL}}/feed/cats?after=t3dv43

@@ -24,20 +24,20 @@ const authInputSchema = z.object({
 });
 
 const saveInputSchema = z.object({
-  id: z.string().length(7, { message: saveMessages.INVALID_ID }),
+  id: z.string().min(5, { message: saveMessages.INVALID_ID }),
   title: z.string(),
   url: z.string().startsWith("https://", { message: saveMessages.INVALID_URL }),
   sub: z.string().min(1, { message: saveMessages.INVALID_SUB }),
 });
 
-const userInputSchema = z.object({
+const updateUserInputSchema = z.object({
   username: z
     .string()
     .regex(usernameRegex, { message: userMessages.INVALID_USERNAME }),
   name: z.string().optional(),
 });
 
-const passwordInputSchema = z
+const updatePasswordInputSchema = z
   .object({
     password: z.string().min(5, { message: passwordMessages.INVALID_PASSWORD }),
     confirmPassword: z
@@ -59,8 +59,8 @@ const passwordInputSchema = z
 export type Env = z.infer<typeof envSchema>;
 export type AuthInput = z.infer<typeof authInputSchema>;
 export type SaveInput = z.infer<typeof saveInputSchema>;
-export type UserInput = z.infer<typeof userInputSchema>;
-export type PasswordInput = z.infer<typeof passwordInputSchema>;
+export type UpdateUserInput = z.infer<typeof updateUserInputSchema>;
+export type UpdatePasswordInput = z.infer<typeof updatePasswordInputSchema>;
 
 export const validateEnv = () => {
   try {
@@ -88,18 +88,18 @@ export const validateSaveInput = (input: SaveInput) => {
   }
 };
 
-export const validateUserInput = (input: UserInput) => {
+export const validateUserInput = (input: UpdateUserInput) => {
   try {
-    userInputSchema.parse(input);
+    updateUserInputSchema.parse(input);
     return null;
   } catch (e) {
     return (e as z.ZodError).issues[0]?.message || null;
   }
 };
 
-export const validatePasswordInput = (input: PasswordInput) => {
+export const validatePasswordInput = (input: UpdatePasswordInput) => {
   try {
-    passwordInputSchema.parse(input);
+    updatePasswordInputSchema.parse(input);
     return null;
   } catch (e) {
     return (e as z.ZodError).issues[0]?.message || null;

@@ -1,0 +1,22 @@
+@baseURL = http://localhost:8000
+
+###
+
+PUT {{baseURL}}/update/user
+Content-Type: application/json
+
+{
+  "username": "scrolller",
+  "name": "Scrolller"
+}
+
+###
+
+PUT {{baseURL}}/update/password
+Content-Type: application/json
+
+{
+  "password": "scrolller",
+  "confirmPassword": "scrolller",
+  "oldPassword": "scrolller1"
+}
