@@ -2,6 +2,8 @@ import type {
   AuthInput,
   AuthResponse,
   BaseResponse,
+  FeedResponse,
+  PostResponse,
   SaveInput,
   SaveResponse,
   UpdatePasswordInput,
@@ -9,7 +11,8 @@ import type {
   UpdateUserInput,
 } from "@/types";
 import { apiUrl } from "@/utils/constants";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Updater, useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
 
 const request = async (method: "POST" | "PUT", path: string, body: any) => {
   const response = await fetch(apiUrl + path, {
@@ -34,10 +37,15 @@ export const useLoginMutation = () => {
   return useMutation<AuthResponse, Error, AuthInput>({
     mutationFn: (input) => post("/auth/login", input),
     onSuccess: (data) => {
+      toast.success(data.message);
       queryClient.setQueryData<AuthResponse>(["me"], {
         ok: true,
+        message: data.message,
         user: data.user,
       });
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 };
@@ -48,10 +56,15 @@ export const useRegisterMutation = () => {
   return useMutation<AuthResponse, Error, AuthInput>({
     mutationFn: (input) => post("/auth/register", input),
     onSuccess: (data) => {
+      toast.success(data.message);
       queryClient.setQueryData<AuthResponse>(["me"], {
         ok: true,
+        message: data.message,
         user: data.user,
       });
+    },
+    onError: (error) => {
+      toast.error(error.message);
     },
   });
 };
@@ -60,9 +73,11 @@ export const useLogoutMutation = () => {
 
   return useMutation<AuthResponse, Error>({
     mutationFn: () => post("/auth/logout", {}),
-    onSuccess: () => {
+    onSuccess: (data) => {
+      toast.success(data.message);
       queryClient.setQueryData<AuthResponse>(["me"], {
         ok: false,
+        message: data.message,
         user: undefined,
       });
     },
@@ -74,7 +89,47 @@ export const useSaveMutation = () => {
 
   return useMutation<SaveResponse, Error, SaveInput>({
     mutationFn: (input) => post("/save", input),
-    onSuccess: () => {},
+    onSuccess: (data, { id, sub }) => {
+      toast.success(data.message);
+
+      const updater: Updater<
+        FeedResponse | undefined,
+        FeedResponse | undefined
+      > = (oldData) => {
+        if (oldData?.posts) {
+          const index = oldData.posts.findIndex((post) => post.id === id);
+          if (index >= 0) {
+            const newData = structuredClone(oldData);
+            newData.posts![index].saved = !oldData.posts[index].saved;
+            return newData;
+          }
+        }
+      };
+
+      queryClient.setQueryData<FeedResponse>(["feed", ""], updater);
+      queryClient.setQueryData<FeedResponse>(["feed", sub], updater);
+      queryClient.setQueryData<PostResponse>(["post", id], (oldData) => {
+        if (oldData?.post) {
+          return {
+            ...oldData,
+            post: { ...oldData.post, saved: !oldData.post.saved },
+          };
+        }
+      });
+      queryClient.setQueryData<FeedResponse>(["saved"], (oldData) => {
+        if (oldData?.posts) {
+          const index = oldData.posts.findIndex((post) => post.id === id);
+          if (index >= 0) {
+            const newData = structuredClone(oldData);
+            newData.posts!.splice(index, 1);
+            return newData;
+          }
+        }
+      });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
   });
 };
 
@@ -83,17 +138,28 @@ export const useUpdateUserMutation = () => {
 
   return useMutation<UpdateResponse, Error, UpdateUserInput>({
     mutationFn: (input) => put("/update/user", input),
-    onSuccess: (_, { username, name }) => {
+    onSuccess: (data, { username, name }) => {
+      toast.success(data.message);
       queryClient.setQueryData<AuthResponse>(["me"], (oldData) => {
         if (oldData?.user?.id) {
           return { ...oldData, user: { ...oldData.user, username, name } };
         }
       });
     },
+    onError: (error) => {
+      toast.error(error.message);
+    },
   });
 };
 
-export const useUpdatePasswordMutation = () =>
-  useMutation<UpdateResponse, Error, UpdatePasswordInput>({
+export const useUpdatePasswordMutation = () => {
+  return useMutation<UpdateResponse, Error, UpdatePasswordInput>({
     mutationFn: (input) => put("/update/password", input),
+    onSuccess: (data) => {
+      toast.success(data.message);
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
   });
+};

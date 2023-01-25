@@ -1,16 +1,12 @@
 import { useUpdatePasswordMutation } from "@/hooks/use-mutation";
 import type { JSXInternal } from "preact/src/jsx";
-import { toast } from "react-hot-toast";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
 type UpdatePasswordFormProps = {};
 
 export const UpdatePasswordForm = ({}: UpdatePasswordFormProps) => {
-  const { mutate, data, error, isLoading } = useUpdatePasswordMutation();
-
-  if (data?.ok) toast.success(data.message);
-  if (error) toast.error(error.message);
+  const { mutate, isLoading } = useUpdatePasswordMutation();
 
   const handleSubmit: JSXInternal.GenericEventHandler<HTMLFormElement> = async (
     event

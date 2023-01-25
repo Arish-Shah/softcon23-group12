@@ -10,11 +10,9 @@ type AuthFormProps = {
 };
 
 export const AuthForm = ({ hook: useAuthMutation }: AuthFormProps) => {
-  const { mutate, data, error, isLoading } = useAuthMutation();
+  const { mutate, data, isLoading } = useAuthMutation();
 
-  if (error) toast.error(error.message);
   if (data?.ok) {
-    toast.success(data.message);
     route("/", true);
   }
 

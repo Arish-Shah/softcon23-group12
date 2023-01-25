@@ -75,6 +75,7 @@ export const validateAuthInput = (input: AuthInput) => {
     authInputSchema.parse(input);
     return null;
   } catch (e) {
+    console.log(e);
     return (e as z.ZodError).issues[0]?.message || null;
   }
 };

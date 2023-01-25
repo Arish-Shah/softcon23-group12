@@ -10,7 +10,7 @@ export const UpdateUser: FunctionComponent<RoutableProps> = () => {
 
   const content =
     !isLoading && data?.ok ? (
-      <UpdateUserForm username={data!.user!.username} name={data!.user!.name} />
+      <UpdateUserForm username={data.user!.username} name={data.user!.name} />
     ) : (
       authSkeleton
     );

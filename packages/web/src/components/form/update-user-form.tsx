@@ -1,6 +1,5 @@
 import { useUpdateUserMutation } from "@/hooks/use-mutation";
 import type { JSXInternal } from "preact/src/jsx";
-import { toast } from "react-hot-toast";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 
@@ -10,10 +9,7 @@ type UpdateUserFormProps = {
 };
 
 export const UpdateUserForm = ({ username, name }: UpdateUserFormProps) => {
-  const { mutate, data, error, isLoading } = useUpdateUserMutation();
-
-  if (data?.ok) toast.success(data.message);
-  if (error) toast.error(error.message);
+  const { mutate, isLoading } = useUpdateUserMutation();
 
   const handleSubmit: JSXInternal.GenericEventHandler<HTMLFormElement> = async (
     event

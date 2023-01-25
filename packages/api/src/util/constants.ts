@@ -44,7 +44,7 @@ export const globalMessages = {
   UNKNOWN_ERROR: "something went wrong",
 };
 
-export const usernameRegex = /[a-zA-Z0-9_]{3,8}/;
+export const usernameRegex = /^[a-zA-Z0-9_]{3,8}$/;
 
 export const home =
   "pics+wallpaper+photoshopbattles+itookapicture+dogpictures+TheWayWeWere+pic+Miniworlds+images+cats";

@@ -5,21 +5,12 @@ import { RootLayout } from "@/layouts/root-layout";
 import { Post as PostType } from "@/types";
 import { redditUrl } from "@/utils/constants";
 import type { FunctionComponent } from "preact";
-import { Link, RoutableProps, route } from "preact-router";
-import { toast } from "react-hot-toast";
+import { Link, RoutableProps } from "preact-router";
 
 export const Post: FunctionComponent<RoutableProps> = () => {
   const id = window.location.pathname.replace("/post/", "");
-  const { data, error, isLoading } = usePostQuery(id);
-  const { mutate, data: saveData, error: saveError } = useSaveMutation();
-
-  if (error) {
-    toast.error(error.message);
-    route("/", true);
-  }
-
-  if (saveData?.ok) toast.success(saveData.message);
-  if (saveError) toast.error(saveError.message);
+  const { data, isLoading } = usePostQuery(id);
+  const { mutate } = useSaveMutation();
 
   const handleSave = (post: PostType) => {
     mutate({ id: post.id, sub: post.sub, title: post.title, url: post.url });
@@ -47,6 +38,18 @@ export const Post: FunctionComponent<RoutableProps> = () => {
             class="font-bold hover:underline"
           >
             @{data.post.author}
+          </Link>{" "}
+          /{" "}
+          <Link
+            href={redditUrl + data.post.permalink}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            🔗
+          </Link>{" "}
+          /{" "}
+          <Link href={data.post.url} target="_blank" rel="noopener noreferrer">
+            📥
           </Link>
         </div>
         <button

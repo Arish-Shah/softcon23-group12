@@ -5,7 +5,9 @@ import type { JSXInternal } from "preact/src/jsx";
 export const LogoutForm = () => {
   const { mutate, data } = useLogoutMutation();
 
-  if (data?.ok) route("/login");
+  if (data?.ok) {
+    route("/login");
+  }
 
   const handleLogout: JSXInternal.MouseEventHandler<HTMLButtonElement> = (
     event

@@ -6,6 +6,8 @@ import type {
 } from "@/types";
 import { apiUrl } from "@/utils/constants";
 import { useQuery } from "@tanstack/react-query";
+import { route } from "preact-router";
+import { toast } from "react-hot-toast";
 
 const get = async (path: string) => {
   const response = await fetch(apiUrl + path, {
@@ -24,8 +26,12 @@ export const useMeQuery = () =>
 
 export const useFeedQuery = (sub = "", after = "") =>
   useQuery<FeedResponse, Error>({
-    queryKey: ["feed", sub, after],
+    queryKey: ["feed", sub],
     queryFn: () => get("/feed/" + sub + "?after=" + after),
+    onError: (error) => {
+      toast.error(error.message);
+      route("/", true);
+    },
   });
 
 export const useSavedQuery = () =>
@@ -34,8 +40,13 @@ export const useSavedQuery = () =>
     queryFn: () => get("/save"),
   });
 
-export const usePostQuery = (id: string) =>
-  useQuery<PostResponse, Error>({
+export const usePostQuery = (id: string) => {
+  return useQuery<PostResponse, Error>({
     queryKey: ["post", id],
     queryFn: () => get("/post/" + id),
+    onError: (error) => {
+      toast.error(error.message);
+      route("/", true);
+    },
   });
+};

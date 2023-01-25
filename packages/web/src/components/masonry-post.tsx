@@ -7,10 +7,7 @@ import { toast } from "react-hot-toast";
 type MasonryPostProps = FeedPost & {};
 
 export function MasonryPost({ id, title, url, sub, saved }: MasonryPostProps) {
-  const { mutate, data, error } = useSaveMutation();
-
-  if (data?.ok) toast.success(data.message);
-  if (error) toast.error(error.message);
+  const { mutate } = useSaveMutation();
 
   const handleSave: JSXInternal.MouseEventHandler<HTMLButtonElement> = (
     event
