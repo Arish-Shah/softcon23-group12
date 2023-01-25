@@ -2,15 +2,15 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import Router from "preact-router";
 import { Toaster } from "react-hot-toast";
 import { Error } from "./pages/error";
-import { Home } from "./pages/home";
-import { Login } from "./pages/login";
-import { Logout } from "./pages/logout";
+import { Home } from "./pages/feed/home";
+import { Login } from "./pages/auth/login";
+import { Logout } from "./pages/auth/logout";
 import { Post } from "./pages/post";
-import { Register } from "./pages/register";
-import { Saved } from "./pages/saved";
-import { Sub } from "./pages/sub";
-import { UpdatePassword } from "./pages/update-password";
-import { UpdateUser } from "./pages/update-user";
+import { Register } from "./pages/auth/register";
+import { Saved } from "./pages/feed/saved";
+import { Sub } from "./pages/feed/sub";
+import { UpdatePassword } from "./pages/me/update-password";
+import { UpdateUser } from "./pages/me/update-user";
 
 const queryClient = new QueryClient({
   defaultOptions: {

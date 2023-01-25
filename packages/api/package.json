@@ -1,11 +1,12 @@
 {
-  "name": "@scrolller/api",
+  "name": "api",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "start": "node dist/server.js",
     "dev": "nodemon",
-    "build": "tsc"
+    "build": "tsc",
+    "db:push": "prisma db push"
   },
   "dependencies": {
     "@prisma/client": "^4.9.0",
