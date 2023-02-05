@@ -1,4 +1,5 @@
 node_modules
 dist
+kubefiles
 npm-debug.log
 .gitignore
