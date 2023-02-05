@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: scrolller-web-deployment
+  labels:
+    app: scrolller-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: scrolller-web
+  template:
+    metadata:
+      labels:
+        app: scrolller-web
+    spec:
+      containers:
+        - name: scrolller-web
+          image: localhost:32000/scrolller-web:v1
+          ports:
+            - containerPort: 80
