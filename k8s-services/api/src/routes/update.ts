@@ -5,15 +5,14 @@ import type {
   UpdateUserRequest,
 } from "@/types";
 import { passwordMessages, userMessages } from "@/util/constants";
+import { prisma } from "@/util/db";
 import { HttpError } from "@/util/http-error";
 import { HttpStatus } from "@/util/http-status";
 import { validatePasswordInput, validateUserInput } from "@/util/validators";
-import { PrismaClient } from "@prisma/client";
 import { compare, hash } from "bcryptjs";
 import { NextFunction, Router } from "express";
 
 const router = Router();
-const prisma = new PrismaClient();
 
 router.put(
   "/user",

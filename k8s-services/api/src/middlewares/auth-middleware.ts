@@ -1,10 +1,8 @@
 import { authMessages } from "@/util/constants";
+import { prisma } from "@/util/db";
 import { HttpError } from "@/util/http-error";
 import { HttpStatus } from "@/util/http-status";
-import { PrismaClient } from "@prisma/client";
 import type { RequestHandler } from "express";
-
-const prisma = new PrismaClient();
 
 export const authMiddleware: RequestHandler = async (req, _, next) => {
   const username = req.session!.username;

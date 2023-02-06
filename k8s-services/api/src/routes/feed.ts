@@ -1,14 +1,13 @@
 import type { FeedPost, FeedResponse } from "@/types";
 import { RedditSubResponse } from "@/types/reddit";
 import { feedMessages } from "@/util/constants";
+import { prisma } from "@/util/db";
 import { fetchFeed } from "@/util/fetchers";
 import { HttpError } from "@/util/http-error";
 import { HttpStatus } from "@/util/http-status";
-import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
 
 const router = Router();
-const prisma = new PrismaClient();
 
 const mapToPost = (
   redditRes: RedditSubResponse,

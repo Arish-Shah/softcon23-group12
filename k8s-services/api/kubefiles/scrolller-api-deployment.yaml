@@ -5,7 +5,7 @@ metadata:
   labels:
     app: scrolller-api
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: scrolller-api
@@ -19,3 +19,12 @@ spec:
           image: localhost:32000/scrolller-api:v1
           ports:
             - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: scrolller-api-config
+          env:
+            - name: SESSION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: scrolller-api-secret
+                  key: SESSION_SECRET

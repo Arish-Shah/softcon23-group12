@@ -3,13 +3,12 @@ import { HttpError } from "@/util/http-error";
 import { authMessages } from "@/util/constants";
 import { HttpStatus } from "@/util/http-status";
 import { AuthInput, validateAuthInput } from "@/util/validators";
-import { PrismaClient } from "@prisma/client";
 import { compare, hash } from "bcryptjs";
 import { Request, Router } from "express";
 import { authMiddleware } from "@/middlewares/auth-middleware";
+import { prisma } from "@/util/db";
 
 const router = Router();
-const prisma = new PrismaClient();
 
 router.post("/register", async (req: AuthRequest, res: AuthResponse, next) => {
   const input = req.body as AuthInput;

@@ -4,10 +4,9 @@ import { postMessages } from "@/util/constants";
 import { fetchPost } from "@/util/fetchers";
 import { HttpStatus } from "@/util/http-status";
 import { Router } from "express";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "@/util/db";
 
 const router = Router();
-const prisma = new PrismaClient();
 
 router.get("/:id", async (req, res: PostResponse, next) => {
   const id = req.params.id;

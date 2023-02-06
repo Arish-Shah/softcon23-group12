@@ -5,7 +5,7 @@ metadata:
   labels:
     app: scrolller-web
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: scrolller-web
@@ -19,3 +19,6 @@ spec:
           image: localhost:32000/scrolller-web:v1
           ports:
             - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: scrolller-web-config
