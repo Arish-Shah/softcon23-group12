@@ -6,7 +6,7 @@ metadata:
     app: scrolller-api
 data:
   NODE_ENV: "development"
-  DATABASE_URL: "postgresql://scrolller:scrolller@localhost:30001/scrolller"
+  DATABASE_URL: "postgresql://scrolller:scrolller@localhost:30001/scrolllerdb"
   COOKIE_NAME: "session"
   REDDIT_URL: "https://reddit.com"
   WEB_URL: "http://localhost:30003"
