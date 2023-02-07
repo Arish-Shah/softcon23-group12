@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: scrolller
+  namespace: scrolller
+  labels:
+    app: scrolller

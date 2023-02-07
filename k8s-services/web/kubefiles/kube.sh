@@ -9,9 +9,9 @@ then
   microk8s kubectl apply -f $dir/scrolller-web-service.yaml
 elif [[ $1 = "stop" ]]
 then
-  microk8s kubectl delete service scrolller-web-service
-  microk8s kubectl delete deployment scrolller-web-deployment
-  microk8s kubectl delete configmaps scrolller-web-config
+  microk8s kubectl delete service scrolller-web-service -n scrolller
+  microk8s kubectl delete deployment scrolller-web-deployment -n scrolller
+  microk8s kubectl delete configmaps scrolller-web-config -n scrolller
 else
   echo "usage: ./kube.sh start/stop"
 fi
