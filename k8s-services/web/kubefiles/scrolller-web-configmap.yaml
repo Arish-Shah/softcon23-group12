@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scrolller-web-config
+  namespace: scrolller
+  labels:
+    app: scrolller-web
+data:
+  VITE_API_URL: "http://localhost:30002"
