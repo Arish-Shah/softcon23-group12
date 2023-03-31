@@ -13,7 +13,7 @@ then
   microk8s kubectl delete service scrolller-api-service -n scrolller
   microk8s kubectl delete deployment scrolller-api-deployment -n scrolller
   microk8s kubectl delete secret scrolller-api-secret -n scrolller
-  microk8s kubectl delete configmaps scrolller-api-config -n scrolller
+  microk8s kubectl delete configmaps scrolller-api-configmap -n scrolller
 else
   echo "usage: ./kube.sh start/stop"
 fi

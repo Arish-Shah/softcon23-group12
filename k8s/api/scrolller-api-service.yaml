@@ -7,9 +7,9 @@ metadata:
     app: scrolller-api
 spec:
   type: NodePort
+  selector:
+    app: scrolller-api
   ports:
     - protocol: TCP
       port: 8080
       nodePort: 30002
-  selector:
-    app: scrolller-api

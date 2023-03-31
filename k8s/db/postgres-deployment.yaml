@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: postgres-container
-          image: postgres:15.1-alpine
+          image: postgres:latest
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
@@ -27,7 +27,7 @@ spec:
             - containerPort: 5432
           envFrom:
             - configMapRef:
-                name: postgres-config
+                name: postgres-configmap
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:
@@ -36,8 +36,8 @@ spec:
                   key: POSTGRES_PASSWORD
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: scrolllerdb
+              name: postgresdb
       volumes:
-        - name: scrolllerdb
+        - name: postgresdb
           persistentVolumeClaim:
             claimName: postgres-pv-claim

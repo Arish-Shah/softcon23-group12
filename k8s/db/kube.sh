@@ -16,7 +16,7 @@ then
   microk8s kubectl delete pvc postgres-pv-claim -n scrolller
   microk8s kubectl delete pv postgres-pv-volume -n scrolller
   microk8s kubectl delete secret postgres-secret -n scrolller
-  microk8s kubectl delete configmaps postgres-config -n scrolller
+  microk8s kubectl delete configmaps postgres-configmap -n scrolller
 else
   echo "usage: ./kube.sh start/stop"
 fi

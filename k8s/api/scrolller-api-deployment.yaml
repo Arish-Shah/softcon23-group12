@@ -26,7 +26,7 @@ spec:
             - containerPort: 8080
           envFrom:
             - configMapRef:
-                name: scrolller-api-config
+                name: scrolller-api-configmap
           env:
             - name: SESSION_SECRET
               valueFrom:

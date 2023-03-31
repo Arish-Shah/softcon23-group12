@@ -16,7 +16,7 @@ spec:
         app: scrolller-web
     spec:
       containers:
-        - name: scrolller-web
+        - name: scrolller-web-container
           image: localhost:32000/scrolller-web:v1
           resources:
             limits:
@@ -24,6 +24,3 @@ spec:
               cpu: "500m"
           ports:
             - containerPort: 80
-          envFrom:
-            - configMapRef:
-                name: scrolller-web-config
