@@ -2,17 +2,16 @@
 
 dir="$(dirname $0)"
 
-if [[ $1 = "start" ]]
-then
+if [[ -z $1 ]]; then
   microk8s kubectl apply -f $dir/scrolller-namespace.yaml
-  $dir/../k8s/db/kube.sh start
-  $dir/../k8s/api/kube.sh start
-  $dir/../k8s/web/kube.sh start
-elif [[ $1 = "stop" ]]
-then
-  $dir/../k8s/web/kube.sh stop
-  $dir/../k8s/api/kube.sh stop
-  $dir/../k8s/db/kube.sh stop
+  $dir/../k8s/db/kube.sh
+  $dir/../k8s/api/kube.sh
+  $dir/../k8s/web/kube.sh
+elif [[ $1 = "u" || $1 = "-u" || $1 = "undo" ]]; then
+  $dir/../k8s/web/kube.sh -u
+  $dir/../k8s/api/kube.sh -u
+  $dir/../k8s/db/kube.sh -u
+  microk8s kubectl delete namespace scrolller
 else
-  echo "usage: ./kube.sh start/stop"
+  echo "usage: ./kube.sh (u/undo)"
 fi

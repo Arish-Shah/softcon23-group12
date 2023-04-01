@@ -6,7 +6,6 @@ metadata:
   labels:
     app: scrolller-api
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: scrolller-api
@@ -20,8 +19,11 @@ spec:
           image: localhost:32000/scrolller-api:v1
           resources:
             limits:
-              memory: "128Mi"
+              memory: "256Mi"
               cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
           ports:
             - containerPort: 8080
           envFrom:
