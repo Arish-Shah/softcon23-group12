@@ -6,4 +6,4 @@ metadata:
   labels:
     app: scrolller-web
 data:
-  VITE_API_URL: "http://api.scrolller.local"
+  VITE_API_URL: "https://api.scrolller.vu"

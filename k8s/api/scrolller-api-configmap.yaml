@@ -11,4 +11,4 @@ data:
   DATABASE_URL: "postgresql://scrolller:scrolller@postgres-service/scrolllerdb"
   COOKIE_NAME: "session"
   REDDIT_URL: "https://reddit.com"
-  WEB_URL: "http://scrolller.local"
+  WEB_URL: "https://scrolller.vu"

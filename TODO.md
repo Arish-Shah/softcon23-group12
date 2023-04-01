@@ -7,9 +7,9 @@
 ### web
 
 - [x] add horizontal scaling to ui (presentation)
-- [x] create service/ingress/api gateway for ui so that it can be accessed outside the cluster (i used NodePost service, change?) - _ingress created (replaced ClusterIP and NodePost with LoadBalancer), add `127.0.0.1 scrolller.local api.scrolller.local` to /etc/hosts file_
+- [x] create service/ingress/api gateway for ui so that it can be accessed outside the cluster (i used NodePost service, change?) - _ingress created (replaced ClusterIP and NodePost with LoadBalancer), add `127.0.0.1 scrolller.vu api.scrolller.vu` to /etc/hosts file_
 
-- [ ] configure tls, ensure api is accessible outside as https. redirect is fine
+- [x] configure tls, ensure api is accessible outside as https. redirect is fine - _done using cert-manager_
 
 ### security
 
@@ -32,6 +32,6 @@
 
 ### misc
 
-- [-] add job to migrate db after pod init (added initContainer but it fails before starting, might need investigation)
+- [x] add job to migrate db after pod init (added initContainer but it fails before starting, might need investigation)
 - [x] use dns to access db from api
 - [x] maybe not use nodeport with db since we can access it locally on 30001 - _switched to use ClusterIP_

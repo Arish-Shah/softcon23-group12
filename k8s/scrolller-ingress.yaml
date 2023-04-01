@@ -5,9 +5,16 @@ metadata:
   namespace: scrolller
   labels:
     app: scrolller
+  annotations:
+    cert-manager.io/issuer: "scrolller-issuer"
 spec:
+  tls:
+    - hosts:
+        - scrolller.vu
+        - api.scrolller.vu
+      secretName: scrolller-tls-secret
   rules:
-    - host: scrolller.local
+    - host: scrolller.vu
       http:
         paths:
           - path: "/"
@@ -17,7 +24,7 @@ spec:
                 name: scrolller-web-service
                 port:
                   number: 80
-    - host: api.scrolller.local
+    - host: api.scrolller.vu
       http:
         paths:
           - path: "/"
