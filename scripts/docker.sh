@@ -14,6 +14,7 @@ if [[ -z $1 ]]; then
   docker push localhost:32000/scrolller-web:v1
 elif [[ $1 = "u" || $1 = "-u" || $1 = "undo" ]]; then
   docker rmi -f $(docker images -aq)
+  # docker system prune
 else
   echo "usage: ./docker.sh (u/undo)"
 fi

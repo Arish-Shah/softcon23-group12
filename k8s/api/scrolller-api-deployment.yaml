@@ -14,6 +14,13 @@ spec:
       labels:
         app: scrolller-api
     spec:
+      initContainers:
+        - name: scrolller-api-migration-container
+          image: localhost:32000/scrolller-api:v1
+          command: ["npx", "prisma", "db", "push"]
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://scrolller:scrolller@postgres-service/scrolllerdb"
       containers:
         - name: scrolller-api-container
           image: localhost:32000/scrolller-api:v1

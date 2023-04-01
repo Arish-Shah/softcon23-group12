@@ -1,0 +1,29 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: scrolller-ingress
+  namespace: scrolller
+  labels:
+    app: scrolller
+spec:
+  rules:
+    - host: scrolller.local
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: scrolller-web-service
+                port:
+                  number: 80
+    - host: api.scrolller.local
+      http:
+        paths:
+          - path: "/"
+            pathType: Prefix
+            backend:
+              service:
+                name: scrolller-api-service
+                port:
+                  number: 8080

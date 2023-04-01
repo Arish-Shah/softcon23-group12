@@ -6,10 +6,10 @@ metadata:
   labels:
     app: scrolller-web
 spec:
-  type: NodePort
+  type: LoadBalancer
   selector:
     app: scrolller-web
   ports:
     - protocol: TCP
       port: 80
-      nodePort: 30003
+      targetPort: 80
