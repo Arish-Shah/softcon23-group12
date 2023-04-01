@@ -5,8 +5,6 @@ metadata:
   namespace: scrolller
   labels:
     app: scrolller
-  annotations:
-    cert-manager.io/issuer: "scrolller-issuer"
 spec:
   tls:
     - hosts:

@@ -6,12 +6,4 @@ metadata:
   labels:
     app: scrolller
 spec:
-  acme:
-    server: https://acme-v02.api.letsencrypt.org/directory
-    email: contact@email.com
-    privateKeySecretRef:
-      name: scrolller-tls-secret
-    solvers:
-      - http01:
-          ingress:
-            class: nginx
+  selfSigned: {}

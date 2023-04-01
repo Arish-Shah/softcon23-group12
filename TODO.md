@@ -9,7 +9,7 @@
 - [x] add horizontal scaling to ui (presentation)
 - [x] create service/ingress/api gateway for ui so that it can be accessed outside the cluster (i used NodePost service, change?) - _ingress created (replaced ClusterIP and NodePost with LoadBalancer), add `127.0.0.1 scrolller.vu api.scrolller.vu` to /etc/hosts file_
 
-- [x] configure tls, ensure api is accessible outside as https. redirect is fine - _done using cert-manager_
+- [x] configure tls, ensure api is accessible outside as https. redirect is fine - _done using cert-manager + self-signed_
 
 ### security
 
