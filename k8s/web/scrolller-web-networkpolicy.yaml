@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: scrolller-web-networkpolicy
+  namespace: scrolller
+  labels:
+    app: scrolller-web
+spec:
+  podSelector:
+    matchLabels:
+      app: scrolller-web
+  policyTypes:
+    - Ingress
+  ingress:
+    - ports:
+        - protocol: TCP
+          port: 80
