@@ -1,0 +1,56 @@
+# Admin Role
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: scrolller-admin-role
+  namespace: scrolller
+  labels:
+    app: scrolller
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "secrets"]
+    verbs: ["create", "get", "update", "delete", "list", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["create", "get", "update", "delete", "list", "watch"]
+  - apiGroups: ["batch"]
+    resources: ["jobs"]
+    verbs: ["create", "get", "update", "delete", "list", "watch"]
+  - apiGroups: ["networking.k8s.io"]
+    resources: ["networkpolicies"]
+    verbs: ["create", "get", "update", "delete", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["persistentvolumeclaims"]
+    verbs: ["create", "get", "update", "delete", "list", "watch"]
+---
+# Developer Role
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: scrolller-dev-role
+  namespace: scrolller
+  labels:
+    app: scrolller
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services", "configmaps", "secrets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["apps"]
+    resources: ["deployments"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["batch"]
+    resources: ["jobs"]
+    verbs: ["get", "list", "watch"]
+---
+# User Role
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: scrolller-user-role
+  namespace: scrolller
+  labels:
+    app: scrolller
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "services"]
+    verbs: ["get", "list", "watch"]

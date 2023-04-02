@@ -10,6 +10,8 @@ if [[ -z $1 ]]; then
   microk8s kubectl apply -f $dir/../k8s/scrolller-issuer.yaml
   microk8s kubectl apply -f $dir/../k8s/scrolller-certificate.yaml
   microk8s kubectl apply -f $dir/../k8s/scrolller-ingress.yaml
+  microk8s kubectl apply -f $dir/../k8s/scrolller-roles.yaml
+  microk8s kubectl apply -f $dir/../k8s/scrolller-rolebindings.yaml
 elif [[ $1 = "u" || $1 = "-u" || $1 = "undo" ]]; then
   microk8s kubectl delete namespace scrolller
 else

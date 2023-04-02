@@ -13,19 +13,19 @@
 
 ### security
 
-- [ ] rbac
-- [ ] configure network policies
+- [x] rbac
+- [x] configure network policies
 
 ### general
 
-- [ ] add network policy so that db can be accessed only from inside the cluster
+- [x] add network policy so that db can be accessed only from inside the cluster
 - [ ] run on google cloud platform
 - [ ] HELM CHART
 
 ## presentation
 
 - [ ] UML
-- [ ] loadbalancer, storage class, image registry, certificates, roles, network policies
+- [x] loadbalancer, storage class, image registry, certificates, roles, network policies
 - [ ] container build and first deployment, horizontal scaling (stateless), uninstallation
 - [ ] rebuild after source code change, upgrade: deployment rollout, canary upgrade
 - [x] horizontal scaling
