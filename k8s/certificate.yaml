@@ -1,16 +1,16 @@
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
-  name: scrolller-certificate
+  name: certificate
   namespace: scrolller
   labels:
     app: scrolller
 spec:
   isCA: true
-  secretName: scrolller-tls-secret
+  secretName: tls-secret
   dnsNames:
     - scrolller.vu
     - api.scrolller.vu
   issuerRef:
-    name: scrolller-issuer
+    name: issuer
     kind: Issuer

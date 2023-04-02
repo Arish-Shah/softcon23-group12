@@ -1,10 +1,10 @@
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: scrolller-web-hpa
+  name: web-hpa
   namespace: scrolller
   labels:
-    app: scrolller-web
+    app: web
 spec:
   minReplicas: 1
   maxReplicas: 3
@@ -18,4 +18,4 @@ spec:
   scaleTargetRef:
     apiVersion: apps/v1
     kind: Deployment
-    name: scrolller-web-deployment
+    name: web-deployment

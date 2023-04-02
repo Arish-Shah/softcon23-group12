@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: scrolller-ingress
+  name: ingress
   namespace: scrolller
   labels:
     app: scrolller
@@ -10,7 +10,7 @@ spec:
     - hosts:
         - scrolller.vu
         - api.scrolller.vu
-      secretName: scrolller-tls-secret
+      secretName: tls-secret
   rules:
     - host: scrolller.vu
       http:
@@ -19,7 +19,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: scrolller-web-service
+                name: web-service
                 port:
                   number: 80
     - host: api.scrolller.vu
@@ -29,6 +29,6 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: scrolller-api-service
+                name: api-service
                 port:
                   number: 8080

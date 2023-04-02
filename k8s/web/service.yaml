@@ -1,15 +1,15 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: scrolller-api-service
+  name: web-service
   namespace: scrolller
   labels:
-    app: scrolller-api
+    app: web
 spec:
   type: LoadBalancer
   selector:
-    app: scrolller-api
+    app: web
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 8080
+      port: 80
+      targetPort: 80

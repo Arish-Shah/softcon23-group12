@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: scrolller-web-deployment
+  name: web-deployment
   namespace: scrolller
   labels:
-    app: scrolller-web
+    app: web
 spec:
   selector:
     matchLabels:
-      app: scrolller-web
+      app: web
   template:
     metadata:
       labels:
-        app: scrolller-web
+        app: web
     spec:
       containers:
-        - name: scrolller-web-container
-          image: localhost:32000/scrolller-web:v1
+        - name: web-container
+          image: localhost:32000/web:v1
           resources:
             limits:
               memory: "256Mi"

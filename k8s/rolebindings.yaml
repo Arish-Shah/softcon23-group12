@@ -1,47 +1,47 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: scrolller-admin
+  name: admin
   namespace: scrolller
   labels:
     app: scrolller
 subjects:
   - kind: User
-    name: scrolller-admin
+    name: admin
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: scrolller-admin-role
+  name: admin-role
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: scrolller-dev
+  name: dev
   namespace: scrolller
   labels:
     app: scrolller
 subjects:
   - kind: User
-    name: scrolller-dev
+    name: dev
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: scrolller-dev-role
+  name: dev-role
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
-  name: scrolller-user
+  name: user
   namespace: scrolller
   labels:
     app: scrolller
 subjects:
   - kind: User
-    name: scrolller-user
+    name: user
     apiGroup: rbac.authorization.k8s.io
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
-  name: scrolller-user-role
+  name: user-role

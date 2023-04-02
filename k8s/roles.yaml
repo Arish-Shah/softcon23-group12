@@ -2,7 +2,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: scrolller-admin-role
+  name: admin-role
   namespace: scrolller
   labels:
     app: scrolller
@@ -27,7 +27,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: scrolller-dev-role
+  name: dev-role
   namespace: scrolller
   labels:
     app: scrolller
@@ -46,7 +46,7 @@ rules:
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
-  name: scrolller-user-role
+  name: user-role
   namespace: scrolller
   labels:
     app: scrolller
