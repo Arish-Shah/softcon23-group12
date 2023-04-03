@@ -1,4 +1,4 @@
-# softcon23-group12
+# softcon23-group48
 
 ```bash
 ./scripts/docker.sh
