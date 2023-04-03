@@ -20,13 +20,13 @@
 
 - [x] add network policy so that db can be accessed only from inside the cluster
 - [ ] run on google cloud platform
-- [ ] HELM CHART
+- [x] HELM CHART
 
 ## presentation
 
 - [ ] UML
 - [x] loadbalancer, storage class, image registry, certificates, roles, network policies
-- [ ] container build and first deployment, horizontal scaling (stateless), uninstallation
+- [x] container build and first deployment, horizontal scaling (stateless), uninstallation
 - [ ] rebuild after source code change, upgrade: deployment rollout, canary upgrade
 - [x] horizontal scaling
 
@@ -35,3 +35,4 @@
 - [x] add job to migrate db after pod init (added initContainer but it fails before starting, might need investigation)
 - [x] use dns to access db from api
 - [x] maybe not use nodeport with db since we can access it locally on 30001 - _switched to use ClusterIP_
+- [x] update values in umbrella chart and reference in sub-chart values - _can only be done by adding umbrella as dependency to sub-charts (not viable)_

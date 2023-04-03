@@ -1,0 +1,69 @@
+name: scrolller
+
+issuer:
+  name: issuer
+  spec:
+    selfSigned: {}
+
+certManager:
+  name: certificate
+  ca: true
+  secret: tls-secret
+
+urls:
+  web: https://scrolller.vu
+  api: https://api.scrolller.vu
+
+ingress:
+  enabled: true
+  name: ingress
+  hosts:
+    - host: scrolller.vu
+      paths:
+        - path: "/"
+          pathType: Prefix
+          backend:
+            serviceName: web-service
+            servicePort: 80
+    - host: api.scrolller.vu
+      paths:
+        - path: "/"
+          pathType: Prefix
+          backend:
+            serviceName: api-service
+            servicePort: 8080
+
+roles:
+  - name: admin
+    rules:
+      - groups: [""]
+        resources: ["pods", "services", "configmaps", "secrets"]
+        verbs: ["create", "get", "update", "delete", "list", "watch"]
+      - groups: ["apps"]
+        resources: ["deployments"]
+        verbs: ["create", "get", "update", "delete", "list", "watch"]
+      - groups: ["batch"]
+        resources: ["jobs"]
+        verbs: ["create", "get", "update", "delete", "list", "watch"]
+      - groups: ["networking.k8s.io"]
+        resources: ["networkpolicies"]
+        verbs: ["create", "get", "update", "delete", "list", "watch"]
+      - groups: [""]
+        resources: ["persistentvolumeclaims"]
+        verbs: ["create", "get", "update", "delete", "list", "watch"]
+  - name: dev
+    rules:
+      - groups: [""]
+        resources: ["pods", "services", "configmaps", "secrets"]
+        verbs: ["get", "list", "watch"]
+      - groups: ["apps"]
+        resources: ["deployments"]
+        verbs: ["get", "list", "watch"]
+      - groups: ["batch"]
+        resources: ["jobs"]
+        verbs: ["get", "list", "watch"]
+  - name: user
+    rules:
+      - groups: [""]
+        resources: ["pods", "services"]
+        verbs: ["get", "list", "watch"]
