@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deployment
+  namespace: scrolller
+  labels:
+    app: api
+spec:
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      initContainers:
+        - name: api-migration-container
+          image: localhost:32000/api:v1
+          command: ["npx", "prisma", "db", "push"]
+          env:
+            - name: DATABASE_URL
+              value: "postgresql://scrolller:scrolller@db-service/scrolllerdb"
+      containers:
+        - name: api-container
+          image: localhost:32000/api:v1
+          resources:
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+            requests:
+              memory: "128Mi"
+              cpu: "250m"
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - configMapRef:
+                name: api-configmap
+          env:
+            - name: SESSION_SECRET
+              valueFrom:
+                secretKeyRef:
+                  name: api-secret
+                  key: SESSION_SECRET

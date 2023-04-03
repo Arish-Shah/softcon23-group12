@@ -1,0 +1,28 @@
+name: web
+
+config:
+  viteApiUrl: https://api.scrolller.vu
+
+image: localhost:32000/web:v1
+
+service:
+  type: LoadBalancer
+  port: 80
+
+resources:
+  limits:
+    memory: "256Mi"
+    cpu: "500m"
+  requests:
+    memory: "128Mi"
+    cpu: "100m"
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+
+networkPolicy:
+  enabled: true
+  ingressPort: 80

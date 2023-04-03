@@ -1,0 +1,16 @@
+apiVersion: v2
+name: scrolller
+description: A Helm chart for Scrolller
+type: application
+version: 0.1.0
+appVersion: "v1"
+dependencies:
+  - name: db
+    version: 0.1.0
+    repository: file://./charts/db
+  - name: api
+    version: 0.1.0
+    repository: file://./charts/api
+  - name: web
+    version: 0.1.0
+    repository: file://./charts/web

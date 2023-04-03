@@ -1,0 +1,16 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ .Values.certManager.name }}
+  labels:
+    app: {{ .Values.name }}
+spec:
+  isCA: {{ .Values.certManager.ca }}
+  secretName: {{ .Values.certManager.secret }}
+  dnsNames:
+    {{- range .Values.ingress.hosts }}
+    - {{ .host }}
+    {{- end }}
+  issuerRef:
+    name: {{ .Values.issuer.name }}
+    kind: Issuer

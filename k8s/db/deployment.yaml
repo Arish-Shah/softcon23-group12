@@ -1,12 +1,11 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: postgres-deployment
+  name: db-deployment
   namespace: scrolller
   labels:
     app: postgres
 spec:
-  replicas: 1
   selector:
     matchLabels:
       app: postgres
@@ -16,23 +15,23 @@ spec:
         app: postgres
     spec:
       containers:
-        - name: postgres-container
-          image: postgres:latest
+        - name: db-container
+          image: postgres:alpine
           imagePullPolicy: "IfNotPresent"
           resources:
             limits:
-              memory: "128Mi"
+              memory: "256Mi"
               cpu: "500m"
           ports:
             - containerPort: 5432
           envFrom:
             - configMapRef:
-                name: postgres-configmap
+                name: db-configmap
           env:
             - name: POSTGRES_PASSWORD
               valueFrom:
                 secretKeyRef:
-                  name: postgres-secret
+                  name: db-secret
                   key: POSTGRES_PASSWORD
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
@@ -40,4 +39,4 @@ spec:
       volumes:
         - name: postgresdb
           persistentVolumeClaim:
-            claimName: postgres-pv-claim
+            claimName: db-pv-claim

@@ -1,0 +1,28 @@
+name: db
+
+config:
+  dbName: scrolllerdb
+  dbUser: scrolller
+  dbPass: scrolller
+
+storage:
+  capacity: 5Gi
+  path: /opt/postgres/data
+  name: postgresdb
+
+image: postgres:alpine
+
+service:
+  type: ClusterIP
+  port: 5432
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "256Mi"
+
+networkPolicy:
+  enabled: true
+  appLabel: api
+  ingressPort: 5432
+  egressPort: 8080

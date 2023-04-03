@@ -1,14 +1,14 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: scrolller-api-configmap
+  name: api-configmap
   namespace: scrolller
   labels:
-    app: scrolller-api
+    app: api
 data:
   NODE_ENV: "development"
   PORT: "8080"
-  DATABASE_URL: "postgresql://scrolller:scrolller@postgres-service/scrolllerdb"
+  DATABASE_URL: "postgresql://scrolller:scrolller@db-service/scrolllerdb"
   COOKIE_NAME: "session"
   REDDIT_URL: "https://reddit.com"
-  WEB_URL: "http://localhost:30003"
+  WEB_URL: "https://scrolller.vu"

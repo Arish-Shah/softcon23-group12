@@ -2,23 +2,19 @@
 
 dir="$(dirname $0)"
 
-tag=$2
-if [[ $tag == "" ]]
-then
-  tag="v1"
-fi
-
-if [[ $1 = "create" ]]
-then
+if [[ -z $1 ]]; then
   cd $dir/../app/api
   echo "building backend..."
-  docker build -t localhost:32000/scrolller-api:$tag .
-  docker push localhost:32000/scrolller-api:$tag
+  docker build -t localhost:32000/api:v1 .
+  docker push localhost:32000/api:v1
 
   cd ../web
   echo "building frontend..."
-  docker build -t localhost:32000/scrolller-web:$tag .
-  docker push localhost:32000/scrolller-web:$tag
+  docker build -t localhost:32000/web:v1 .
+  docker push localhost:32000/web:v1
+elif [[ $1 = "u" || $1 = "-u" || $1 = "undo" ]]; then
+  docker rmi -f $(docker images -aq)
+  # docker system prune
 else
-  echo "usage: ./docker.sh create"
+  echo "usage: ./docker.sh (u/undo)"
 fi

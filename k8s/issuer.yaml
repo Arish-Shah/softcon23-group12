@@ -1,0 +1,9 @@
+apiVersion: cert-manager.io/v1
+kind: Issuer
+metadata:
+  name: issuer
+  namespace: scrolller
+  labels:
+    app: scrolller
+spec:
+  selfSigned: {}
