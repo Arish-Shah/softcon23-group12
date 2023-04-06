@@ -26,3 +26,9 @@ autoscaling:
 networkPolicy:
   enabled: true
   ingressPort: 80
+
+canary:
+  enabled: false
+  replicas: 1
+  image: localhost:32000/web:v3
+  type: NodePort

@@ -1,19 +1,21 @@
+{{- if .Values.canary.enabled }}
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.name }}-deployment
+  name: {{ .Values.name }}-canary-deployment
   labels:
     app: {{ .Values.name }}
 spec:
+  replicas: {{ .Values.canary.replicas }}
   selector:
     matchLabels:
       app: {{ .Values.name }}
-      version: v1
+      version: v2
   template:
     metadata:
       labels:
         app: {{ .Values.name }}
-        version: v1
+        version: v2
     spec:
       containers:
         - name: {{ .Values.name }}-container
@@ -22,3 +24,19 @@ spec:
             {{ toYaml .Values.resources | nindent 12 }}
           ports:
             - containerPort: {{ .Values.service.port }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.name }}-service
+  labels:
+    app: {{ .Values.name }}
+spec:
+  type: {{ .Values.canary.type }}
+  selector:
+    app: {{ .Values.name }}
+  ports:
+    - name: http
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }} 
+{{- end }}
