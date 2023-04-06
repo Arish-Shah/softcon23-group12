@@ -2,7 +2,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.name }}-canary-deployment
+  name: {{ .Values.name }}-v3-deployment
   labels:
     app: {{ .Values.name }}
 spec:
@@ -10,12 +10,12 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.name }}
-      version: v2
+      version: v3
   template:
     metadata:
       labels:
         app: {{ .Values.name }}
-        version: v2
+        version: v3
     spec:
       containers:
         - name: {{ .Values.name }}-container

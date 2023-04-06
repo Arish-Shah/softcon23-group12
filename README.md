@@ -29,21 +29,13 @@ microk8s enable dns cert-manager helm3 ingress metallb rbac registry storage
 
 ## Installation
 
-Before installing the application, we build the images and publish them to the microk8s' private Docker registry.
-
-1. To do so, we can either use the bash script `docker.sh` or do it manually.
+1. Before installing the application, we build the images and publish them to the microk8s' private Docker registry.
 
 ```shell
-./scripts/docker.sh
-
-# or
-
-cd ./app/api
-docker build -t localhost:32000/api:v1 .
+docker build -t localhost:32000/api:v1 ./app/api
 docker push localhost:32000/api:v1
 
-cd ./app/web
-docker build -t localhost:32000/web:v1 .
+docker build -t localhost:32000/web:v1 ./app/web
 docker push localhost:32000/web:v1
 ```
 
@@ -59,14 +51,120 @@ microk8s helm3 install scrolller ./helm -n scrolller --create-namespace
 127.0.0.1 scrolller.vu api.scrolller.vu
 ```
 
+4. Check the deployment status.
+
+```shell
+microk8s helm3 list -n scrolller
+
+microk8s kubectl rollout status deployment/db-deployment
+microk8s kubectl rollout status deployment/api-deployment
+microk8s kubectl rollout status deployment/web-deployment
+```
+
+5. Navigate to the following URLs: https://scrolller.vu and https://api.scrolller.vu. After importing the SSL certificates for both Web UI and REST API, the application is accessible.
+
 ## Scaling
 
-<!-- update minReplicas, then helm upgrade scrolller ./helm -n scrolller -->
+1. Inspect the current number of active pods.
+
+```shell
+microk8s kubectl get pods -n scrolller
+```
+
+2. Increase the `minReplicas` count for both the `api` and `web` sub-charts and upgrade the deployment.
+
+```shell
+microk8s helm3 upgrade scrolller ./helm -n scrolller
+```
+
+3. We can verify that no new revision was done to the application.
+
+```shell
+microk8s kubectl rollout history deployment/api-deployment
+microk8s kubectl rollout history deployment/web-deployment
+```
 
 ## Upgrade
 
-<!-- update some value in CSS file, publish image with a new tag, update values.yaml image property to pull the new image, update application version, update dependencies version in umbrella chart. run helm upgrade srolller ./helm -n scrolller. hopefully should work -->
+#### Upgrade with deployment rollout
+
+1. Update the footer tag's value in `app/web/src/layouts/root-layout.tsx`.
+
+```
+41    v2 / software containerization v1 / group 48
+```
+
+2. Build and publish a new Docker image for the application with tag v2.
+
+```shell
+docker build -t localhost:32000/web:v2 ./app/web
+docker push localhost:32000/web:v2
+```
+
+3. Now update the file `helm/charts/web/values.yaml` with the new version of the image.
+
+```
+6   image: localhost:32000/web:v2
+```
+
+4. Upgrade the helm deployment.
+
+```shell
+microk8s helm3 upgrade scrolller ./helm -n scrolller
+```
+
+5. Verify that this new deployment was rolled out.
+
+```shell
+microk8s kubectl rollout history deployment/web-deployment
+```
+
+#### Upgrade with canary update
+
+1. To perform an upgrade using canary deployment, update the footer tag's value again in `app/web/src/layouts/root-layout.tsx`.
+
+```
+41    v3 / software containerization v1 / group 48
+```
+
+2. Build and publish a new Docker image for the application with tag v3.
+
+```shell
+docker build -t localhost:32000/web:v3 ./app/web
+docker push localhost:32000/web:v3
+```
+
+3. Enable the canary deployment value in `helm/charts/web/values.yaml`.
+
+```
+30   canary:
+31      enabled: true
+```
+
+4. Upgrade the helm deployment.
+
+```shell
+microk8s helm3 upgrade scrolller ./helm -n scrolller
+```
+
+5. Check the currently running pods and services.
+
+```
+microk8s kubectl get pods --show-labels -n scrolller
+
+microk8s kubectl get services -n scrolller
+```
+
+6. We can now complete the update of the application by rolling out this version.
+
+```
+microk8s kubectl scale --replicas=4 deploy web-v3-deployment
+```
 
 ## Uninstallation
 
-<!-- helm uninstall scrolller -n scrolller -->
+We can uninstall the application as such.
+
+```
+microk8s helm3 uninstall scrolller -n scrolller
+```
