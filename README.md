@@ -4,6 +4,12 @@
 
 [Project Repository](https://github.com/Arish-Shah/softcon23-group48)
 
+## Technology Stack
+
+- **REST API**: Express.js
+- **Web UI**: React.js
+- **Database**: PostgreSQL
+
 ## Directory Structure
 
 - `app/`: contains the application source code along with Dockerfiles for the REST API and Web UI.
@@ -11,13 +17,7 @@
 - `k8s/`: contains the vanilla Kubernetes YAML files to deploy the application without using helm.
 - `scripts/`: includes the shell scripts to build and publish the application docker images, and deploy through Kubernetes.
 
-## Technology Stack
-
-- **Database**: PostgreSQL
-- **REST API**: Express.js
-- **Web UI**: React.js
-
-## Application UML Diagrams
+## Architecture
 
 ## Requirements
 
@@ -53,10 +53,10 @@ docker push localhost:32000/web:v1
 microk8s helm3 install scrolller ./helm -n scrolller --create-namespace
 ```
 
-3. To install the application without using Helm, we can use the kube.sh script.
+3. Add the following entry to the `/etc/hosts` file:
 
-```shell
-./scripts/kube.sh
+```
+127.0.0.1 scrolller.vu api.scrolller.vu
 ```
 
 ## Scaling
