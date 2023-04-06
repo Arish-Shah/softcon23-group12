@@ -38,7 +38,7 @@ export const RootLayout: FunctionComponent<RootLayoutProps> = ({
         children
       )}
       <footer class="mt-10 mb-8 text-center" ref={bottomRef}>
-        v1 / software containerization v1 / group 48
+        v1 / software containerization / group 48
       </footer>
     </div>
   );

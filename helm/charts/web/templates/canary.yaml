@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
         - name: {{ .Values.name }}-container
-          image: {{ .Values.image }}
+          image: {{ .Values.canary.image }}
           resources:
             {{ toYaml .Values.resources | nindent 12 }}
           ports:
@@ -28,15 +28,16 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ .Values.name }}-service
+  name: {{ .Values.name }}-v3-service
   labels:
     app: {{ .Values.name }}
+    version: v3
 spec:
   type: {{ .Values.canary.type }}
   selector:
     app: {{ .Values.name }}
+    version: v3
   ports:
-    - name: http
-      port: {{ .Values.service.port }}
+    - port: {{ .Values.service.port }}
       targetPort: {{ .Values.service.port }} 
 {{- end }}

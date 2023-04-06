@@ -56,9 +56,9 @@ microk8s helm3 install scrolller ./helm -n scrolller --create-namespace
 ```shell
 microk8s helm3 list -n scrolller
 
-microk8s kubectl rollout status deployment/db-deployment
-microk8s kubectl rollout status deployment/api-deployment
-microk8s kubectl rollout status deployment/web-deployment
+microk8s kubectl rollout status deployment/db-deployment -n scrolller
+microk8s kubectl rollout status deployment/api-deployment -n scrolller
+microk8s kubectl rollout status deployment/web-deployment -n scrolller
 ```
 
 5. Navigate to the following URLs: https://scrolller.vu and https://api.scrolller.vu. After importing the SSL certificates for both Web UI and REST API, the application is accessible.
@@ -80,8 +80,8 @@ microk8s helm3 upgrade scrolller ./helm -n scrolller
 3. We can verify that no new revision was done to the application.
 
 ```shell
-microk8s kubectl rollout history deployment/api-deployment
-microk8s kubectl rollout history deployment/web-deployment
+microk8s kubectl rollout history deployment/api-deployment -n scrolller
+microk8s kubectl rollout history deployment/web-deployment -n scrolller
 ```
 
 ## Upgrade
@@ -91,7 +91,7 @@ microk8s kubectl rollout history deployment/web-deployment
 1. Update the footer tag's value in `app/web/src/layouts/root-layout.tsx`.
 
 ```
-41    v2 / software containerization v1 / group 48
+41    v2 / software containerization / group 48
 ```
 
 2. Build and publish a new Docker image for the application with tag v2.
@@ -116,7 +116,7 @@ microk8s helm3 upgrade scrolller ./helm -n scrolller
 5. Verify that this new deployment was rolled out.
 
 ```shell
-microk8s kubectl rollout history deployment/web-deployment
+microk8s kubectl rollout history deployment/web-deployment -n scrolller
 ```
 
 #### Upgrade with canary update
@@ -124,7 +124,7 @@ microk8s kubectl rollout history deployment/web-deployment
 1. To perform an upgrade using canary deployment, update the footer tag's value again in `app/web/src/layouts/root-layout.tsx`.
 
 ```
-41    v3 / software containerization v1 / group 48
+41    v3 / software containerization / group 48
 ```
 
 2. Build and publish a new Docker image for the application with tag v3.
@@ -158,7 +158,13 @@ microk8s kubectl get services -n scrolller
 6. We can now complete the update of the application by rolling out this version.
 
 ```
-microk8s kubectl scale --replicas=4 deploy web-v3-deployment
+microk8s kubectl scale --replicas=4 deploy web-v3-deployment -n scrolller
+```
+
+7. Delete the previous version of the deployment.
+
+```
+microk8s kubectl delete deployment web-deployment -n scrolller
 ```
 
 ## Uninstallation
