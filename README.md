@@ -178,3 +178,7 @@ We can uninstall the application as such.
 ```
 microk8s helm3 uninstall scrolller -n scrolller
 ```
+
+## Note
+
+- The REST API takes some time to initialize because it tries to run migration before the Database pod is up. The initContainer retries again and succeeds once the Database pod is running.
