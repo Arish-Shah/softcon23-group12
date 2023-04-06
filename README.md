@@ -19,6 +19,10 @@
 
 ## Architecture
 
+| Database Class Diagram                             | Save/Unsave Post Sequence Diagram                                  |
+| -------------------------------------------------- | ------------------------------------------------------------------ |
+| ![Database Class Diagram](./diagrams/db-class.png) | ![Save/Unsave Post Sequence Diagram](./diagrams/save-sequence.png) |
+
 ## Requirements
 
 You need to have `docker` and `microk8s` installed on your system. Enable the following addons for `microk8s` before installing the application:
